@@ -50,7 +50,11 @@ export default function HogaresPage() {
               </Button>
             </div>
           </div>
-          <PlaceholderImage label="Remodelación residencial" className="aspect-[4/3] w-full rounded-2xl lg:aspect-square" />
+          <PlaceholderImage
+            label="Remodelación residencial"
+            src="/images/hogares-remodelacion-residencial.jpg"
+            className="aspect-[4/3] w-full rounded-2xl lg:aspect-square"
+          />
         </div>
       </section>
 

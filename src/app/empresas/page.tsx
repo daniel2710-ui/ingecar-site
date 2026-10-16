@@ -51,7 +51,11 @@ export default function EmpresasPage() {
               </Button>
             </div>
           </div>
-          <PlaceholderImage label="Mantenimiento industrial" className="aspect-[4/3] w-full rounded-2xl lg:aspect-square" />
+          <PlaceholderImage
+            label="Mantenimiento industrial"
+            src="/images/empresas-mantenimiento-industrial.jpg"
+            className="aspect-[4/3] w-full rounded-2xl lg:aspect-square"
+          />
         </div>
       </section>
 
