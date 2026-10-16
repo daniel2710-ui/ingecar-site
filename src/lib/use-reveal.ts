@@ -15,10 +15,11 @@ export function useReveal<T extends HTMLElement = HTMLDivElement>(rootMargin = "
     if (!el) return;
 
     // No IntersectionObserver support — show content immediately rather than
-    // leaving it permanently hidden.
+    // leaving it permanently hidden. Deferred via setTimeout so we're not
+    // calling setState synchronously inside the effect body.
     if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
+      const id = window.setTimeout(() => setVisible(true), 0);
+      return () => window.clearTimeout(id);
     }
 
     const observer = new IntersectionObserver(

@@ -7,11 +7,11 @@ const stats = [
 
 export function StatStrip() {
   return (
-    <div className="grid grid-cols-2 gap-6 rounded-xl bg-primary px-6 py-8 sm:grid-cols-4 sm:px-10">
+    <div className="grid grid-cols-2 gap-6 rounded-xl bg-surface-dark px-6 py-8 sm:grid-cols-4 sm:px-10">
       {stats.map((s) => (
         <div key={s.desc}>
-          <p className="font-data text-2xl font-medium text-white sm:text-3xl">{s.num}</p>
-          <p className="mt-1 text-xs text-primary-foreground/65 sm:text-sm">{s.desc}</p>
+          <p className="font-data text-2xl font-medium text-surface-dark-foreground sm:text-3xl">{s.num}</p>
+          <p className="mt-1 text-xs text-surface-dark-muted sm:text-sm">{s.desc}</p>
         </div>
       ))}
     </div>

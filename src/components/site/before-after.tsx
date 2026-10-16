@@ -24,14 +24,14 @@ export function BeforeAfter({
 
   return (
     <div className={cn("relative select-none overflow-hidden rounded-2xl", className)}>
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#E3DCD3] text-[#8A8578]">
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#E2E7E1] text-[#6E7A74]">
         <span className="rounded-full bg-white/70 px-2.5 py-1 text-[10px] font-medium tracking-wide uppercase">
           {afterLabel} · Foto pendiente
         </span>
         {label ? <span className="px-3 text-center text-xs font-medium opacity-70">{label}</span> : null}
       </div>
       <div
-        className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#DCE3DB] text-[#8A8578]"
+        className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#DCE6DF] text-[#6E7A74]"
         style={{ clipPath: `inset(0 ${100 - value}% 0 0)` }}
       >
         <span className="rounded-full bg-white/70 px-2.5 py-1 text-[10px] font-medium tracking-wide uppercase">

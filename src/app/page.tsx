@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Building2, Home as HomeIcon, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/site/section-label";
@@ -45,30 +46,42 @@ export default function HomePage() {
               </div>
             </div>
             <PlaceholderImage
-              label="Proyecto INGECAR en ejecución"
-              tone={0}
-              className="aspect-[4/3] w-full rounded-2xl lg:aspect-square"
+              label="Subestación eléctrica — mantenimiento INGECAR"
+              src="/images/photo/hero-subestacion.jpg"
+              faceted
+              className="aspect-[4/3] w-full lg:aspect-square"
             />
           </RevealGroup>
         </div>
       </section>
 
-      {/* Accesos diferenciados */}
+      {/* Accesos diferenciados — igual peso estratégico; la fotografía y el copy narran cada segmento */}
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
         <div className="grid gap-5 sm:grid-cols-2">
           <Link
             href="/empresas"
-            className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-8 transition-colors hover:border-primary/40"
+            className="card-interactive group relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-2xl p-8 sm:min-h-[400px] sm:p-10"
           >
-            <Building2 className="size-8 text-primary" strokeWidth={1.5} />
-            <div className="mt-8">
-              <h2 className="font-heading text-xl font-bold text-foreground">
+            <Image
+              src="/images/photo/tecnico-ingecar-mantenimiento.jpg"
+              alt="Técnico de INGECAR en labores de mantenimiento"
+              fill
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
+            <Building2 className="relative size-8 text-white" strokeWidth={1.5} />
+            <div className="relative mt-10">
+              <p className="font-data text-xs uppercase tracking-[0.08em] text-surface-dark-muted">
+                Segmento empresarial
+              </p>
+              <h2 className="mt-2 font-heading text-2xl font-bold text-white">
                 Soluciones para empresas
               </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm text-white/75">
                 Mantenimiento, obras civiles, automatización y cumplimiento para tu operación.
               </p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-white">
                 Ver soluciones B2B
                 <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
@@ -76,17 +89,28 @@ export default function HomePage() {
           </Link>
           <Link
             href="/hogares"
-            className="group flex flex-col justify-between rounded-2xl border border-border bg-card p-8 transition-colors hover:border-primary/40"
+            className="card-interactive group relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-2xl p-8 sm:min-h-[400px] sm:p-10"
           >
-            <HomeIcon className="size-8 text-primary" strokeWidth={1.5} />
-            <div className="mt-8">
-              <h2 className="font-heading text-xl font-bold text-foreground">
+            <Image
+              src="/images/photo/arquitectura-residencial.jpg"
+              alt="Arquitectura residencial contemporánea"
+              fill
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/5" />
+            <HomeIcon className="relative size-8 text-white" strokeWidth={1.5} />
+            <div className="relative mt-10">
+              <p className="font-data text-xs uppercase tracking-[0.08em] text-white/70">
+                Segmento residencial
+              </p>
+              <h2 className="mt-2 font-heading text-2xl font-bold text-white">
                 Remodelaciones y construcción residencial
               </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm text-white/75">
                 Transforma tu casa o apartamento con acabados modernos y acompañamiento integral.
               </p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary">
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-white">
                 Ver soluciones para tu hogar
                 <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
@@ -183,22 +207,18 @@ export default function HomePage() {
 
       {/* CTA final */}
       <section className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
-        <div className="flex flex-col items-center gap-5 rounded-2xl bg-primary px-6 py-14 text-center">
-          <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+        <div className="flex flex-col items-center gap-5 rounded-2xl bg-surface-dark px-6 py-14 text-center">
+          <h2 className="font-heading text-2xl font-bold text-surface-dark-foreground sm:text-3xl">
             ¿Listo para empezar tu proyecto?
           </h2>
-          <p className="max-w-md text-sm text-primary-foreground/75">
+          <p className="max-w-md text-sm text-white/70">
             Cuéntanos qué necesitas y te respondemos con una propuesta clara y a tiempo.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild variant="cta" size="lg" className="h-12 rounded-lg px-6 text-base">
+            <Button asChild variant="cta-on-dark" size="lg" className="h-12 rounded-lg px-6 text-base">
               <Link href="/cotizar">Solicitar cotización</Link>
             </Button>
-            <Button
-              asChild
-              size="lg"
-              className="h-12 rounded-lg bg-white px-6 text-base text-primary hover:bg-white/90"
-            >
+            <Button asChild variant="outline-on-dark" size="lg" className="h-12 rounded-lg px-6 text-base">
               <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
                 Hablar por WhatsApp
               </a>
