@@ -123,13 +123,23 @@ export default function HogaresPage() {
       ) : null}
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <div className="flex flex-col items-center gap-5 rounded-2xl bg-primary px-6 py-14 text-center">
-          <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+        <div className="flex flex-col items-center gap-5 rounded-2xl bg-surface-dark px-6 py-14 text-center">
+          <h2 className="font-heading text-2xl font-bold text-surface-dark-foreground sm:text-3xl">
             ¿Listo para transformar tu espacio?
           </h2>
-          <Button asChild variant="cta" size="lg" className="h-12 rounded-lg px-6 text-base">
-            <Link href="/cotizar">Solicitar cotización</Link>
-          </Button>
+          <p className="max-w-md text-sm text-white/70">
+            Cuéntanos qué quieres remodelar y coordinamos una visita técnica.
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button asChild variant="cta-on-dark" size="lg" className="h-12 rounded-lg px-6 text-base">
+              <Link href="/cotizar">Solicitar cotización</Link>
+            </Button>
+            <Button asChild variant="outline-on-dark" size="lg" className="h-12 rounded-lg px-6 text-base">
+              <a href={whatsappLink("Hola, quiero remodelar mi casa/apartamento.")} target="_blank" rel="noopener noreferrer">
+                Hablar por WhatsApp
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
     </>

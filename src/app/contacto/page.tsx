@@ -54,7 +54,7 @@ export default function ContactoPage() {
             href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
+            className="card-interactive flex items-start gap-3 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
           >
             <MessageCircle className="size-5 shrink-0 text-primary" />
             <div>
@@ -64,7 +64,7 @@ export default function ContactoPage() {
           </a>
           <a
             href={`mailto:${siteConfig.email}`}
-            className="flex items-start gap-3 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
+            className="card-interactive flex items-start gap-3 rounded-xl border border-border bg-card p-5 hover:border-primary/40"
           >
             <Mail className="size-5 shrink-0 text-primary" />
             <div>

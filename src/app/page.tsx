@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, Building2, Home as HomeIcon, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/site/section-label";
@@ -46,8 +45,8 @@ export default function HomePage() {
               </div>
             </div>
             <PlaceholderImage
-              label="Subestación eléctrica — mantenimiento INGECAR"
-              src="/images/photo/hero-subestacion.jpg"
+              label="Proyecto INGECAR en ejecución"
+              tone={0}
               faceted
               className="aspect-[4/3] w-full lg:aspect-square"
             />
@@ -62,14 +61,12 @@ export default function HomePage() {
             href="/empresas"
             className="card-interactive group relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-2xl p-8 sm:min-h-[400px] sm:p-10"
           >
-            <Image
-              src="/images/photo/tecnico-ingecar-mantenimiento.jpg"
-              alt="Técnico de INGECAR en labores de mantenimiento"
-              fill
-              sizes="(min-width: 640px) 50vw, 100vw"
-              className="object-cover transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
+            <PlaceholderImage
+              label="Equipo INGECAR en obra"
+              tone={1}
+              className="absolute inset-0 transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/5" />
             <Building2 className="relative size-8 text-white" strokeWidth={1.5} />
             <div className="relative mt-10">
               <p className="font-data text-xs uppercase tracking-[0.08em] text-surface-dark-muted">
@@ -91,14 +88,12 @@ export default function HomePage() {
             href="/hogares"
             className="card-interactive group relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-2xl p-8 sm:min-h-[400px] sm:p-10"
           >
-            <Image
-              src="/images/photo/arquitectura-residencial.jpg"
-              alt="Arquitectura residencial contemporánea"
-              fill
-              sizes="(min-width: 640px) 50vw, 100vw"
-              className="object-cover transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
+            <PlaceholderImage
+              label="Arquitectura residencial INGECAR"
+              tone={2}
+              className="absolute inset-0 transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/5" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-black/5" />
             <HomeIcon className="relative size-8 text-white" strokeWidth={1.5} />
             <div className="relative mt-10">
               <p className="font-data text-xs uppercase tracking-[0.08em] text-white/70">

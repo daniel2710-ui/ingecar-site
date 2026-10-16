@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { getPostsByCategoria } from "@/lib/data/blog";
 import { blogCategorias } from "@/lib/data/certificaciones";
 
@@ -38,12 +39,12 @@ export default async function BlogCategoriaPage({
       <SectionLabel className="mt-5">Categoría</SectionLabel>
       <h1 className="mt-2 font-heading text-3xl font-bold text-foreground">{categoria.nombre}</h1>
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <RevealGroup className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" itemClassName="flex h-full">
         {posts.map((post, i) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group overflow-hidden rounded-xl border border-border bg-card"
+            className="card-interactive group flex w-full flex-col overflow-hidden rounded-xl border border-border bg-card"
           >
             <PlaceholderImage label={post.titulo} tone={i} className="aspect-[16/9] w-full" />
             <div className="p-5">
@@ -52,7 +53,7 @@ export default async function BlogCategoriaPage({
             </div>
           </Link>
         ))}
-      </div>
+      </RevealGroup>
       {posts.length === 0 ? (
         <p className="mt-10 text-sm text-muted-foreground">
           Todavía no hay artículos publicados en esta categoría.

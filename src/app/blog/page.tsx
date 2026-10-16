@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { blogPosts, getPostsDestacados } from "@/lib/data/blog";
 import { blogCategorias } from "@/lib/data/certificaciones";
 
@@ -45,12 +46,12 @@ export default function BlogPage() {
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
             Destacados
           </p>
-          <div className="mt-4 grid gap-5 sm:grid-cols-2">
+          <RevealGroup className="mt-4 grid gap-5 sm:grid-cols-2" itemClassName="flex h-full">
             {destacados.map((post, i) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group overflow-hidden rounded-xl border border-border bg-card"
+                className="card-interactive group flex w-full flex-col overflow-hidden rounded-xl border border-border bg-card"
               >
                 <PlaceholderImage label={post.titulo} tone={i} className="aspect-[16/9] w-full" />
                 <div className="p-5">
@@ -64,7 +65,7 @@ export default function BlogPage() {
                 </div>
               </Link>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       ) : null}
 
@@ -72,12 +73,12 @@ export default function BlogPage() {
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           Todos los artículos
         </p>
-        <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" itemClassName="flex h-full">
           {blogPosts.map((post, i) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group overflow-hidden rounded-xl border border-border bg-card"
+              className="card-interactive group flex w-full flex-col overflow-hidden rounded-xl border border-border bg-card"
             >
               <PlaceholderImage label={post.titulo} tone={i} className="aspect-[16/9] w-full" />
               <div className="p-5">
@@ -90,7 +91,7 @@ export default function BlogPage() {
               </div>
             </Link>
           ))}
-        </div>
+        </RevealGroup>
       </div>
     </section>
   );
