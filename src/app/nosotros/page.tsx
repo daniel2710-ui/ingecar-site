@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SectionLabel } from "@/components/site/section-label";
 import { StatStrip } from "@/components/site/stat-strip";
 import { Timeline } from "@/components/site/timeline";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { hitos } from "@/lib/data/hitos";
 import { TextReveal } from "@/components/site/text-reveal";
 
@@ -44,7 +45,7 @@ export default function NosotrosPage() {
 
       <section className="bg-secondary/40 py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <div className="grid gap-5 sm:grid-cols-2">
+          <RevealGroup className="grid gap-5 sm:grid-cols-2" itemClassName="flex h-full flex-col">
             <div className="rounded-2xl border border-border bg-card p-7">
               <h2 className="font-heading text-lg font-bold text-primary">Misión</h2>
               <p className="mt-3 text-sm leading-relaxed text-foreground/85">
@@ -59,21 +60,20 @@ export default function NosotrosPage() {
                 servicios y la utilización eficiente de nuestros recursos.
               </p>
             </div>
-          </div>
-
-          <div className="mt-6 rounded-2xl border border-border bg-card p-7">
-            <h2 className="font-heading text-lg font-bold text-primary">Política de calidad</h2>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {principios.map((p) => (
-                <span
-                  key={p}
-                  className="rounded-full bg-secondary px-3.5 py-1.5 text-xs font-medium text-secondary-foreground"
-                >
-                  {p}
-                </span>
-              ))}
+            <div className="rounded-2xl border border-border bg-card p-7 sm:col-span-2">
+              <h2 className="font-heading text-lg font-bold text-primary">Política de calidad</h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {principios.map((p) => (
+                  <span
+                    key={p}
+                    className="rounded-full bg-secondary px-3.5 py-1.5 text-xs font-medium text-secondary-foreground"
+                  >
+                    {p}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          </RevealGroup>
         </div>
       </section>
 

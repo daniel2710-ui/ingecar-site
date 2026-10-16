@@ -10,8 +10,9 @@ import { cn } from "cn";
  * settle, tied 1:1 to scroll position (not autoplayed, not pinned) so it
  * never slows the user down on the way to a CTA further down the page.
  *
- * Used only for the homepage's featured-portfolio cards — this is the
- * site's one "signature" scroll move, not a pattern to repeat on every grid.
+ * Reserved for single featured/hero images (homepage portfolio cards,
+ * project and article detail pages) — never for every thumbnail in a
+ * dense grid, where it would turn into visual noise.
  */
 export function CinematicReveal({
   children,

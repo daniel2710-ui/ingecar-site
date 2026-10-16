@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
+import { RevealGroup } from "@/components/site/reveal-group";
+import { CinematicReveal } from "@/components/site/cinematic-reveal";
 import { blogPosts, getPostBySlug } from "@/lib/data/blog";
 import { blogCategorias } from "@/lib/data/certificaciones";
 import { whatsappLink } from "@/lib/site-config";
@@ -57,15 +59,17 @@ export default async function BlogPostPage({
         {post.tiempoLectura} de lectura
       </p>
 
-      <PlaceholderImage label={post.titulo} className="mt-8 aspect-video w-full rounded-2xl" />
+      <CinematicReveal className="mt-8 aspect-video w-full rounded-2xl">
+        <PlaceholderImage label={post.titulo} className="size-full" />
+      </CinematicReveal>
 
-      <div className="mt-8 flex flex-col gap-5">
+      <RevealGroup className="mt-8 flex flex-col gap-5">
         {post.contenido.map((parrafo, i) => (
           <p key={i} className="text-base leading-relaxed text-foreground/85">
             {parrafo}
           </p>
         ))}
-      </div>
+      </RevealGroup>
 
       <div className="mt-12 flex flex-col items-start gap-3 rounded-xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm font-medium text-foreground">
