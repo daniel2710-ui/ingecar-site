@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
 import { BeforeAfter } from "@/components/site/before-after";
+import { RevealGroup } from "@/components/site/reveal-group";
+import { CinematicReveal } from "@/components/site/cinematic-reveal";
 import { getProyectoBySlug, proyectos } from "@/lib/data/proyectos";
 import { getServicioBySlug } from "@/lib/data/servicios";
 import { whatsappLink } from "@/lib/site-config";
@@ -83,10 +85,12 @@ export default async function ProyectoPage({
       {proyecto.antesDespues ? (
         <BeforeAfter label={proyecto.titulo} className="mt-8 aspect-video w-full" />
       ) : (
-        <PlaceholderImage label={proyecto.titulo} className="mt-8 aspect-video w-full rounded-2xl" />
+        <CinematicReveal className="mt-8 aspect-video w-full rounded-2xl">
+          <PlaceholderImage label={proyecto.titulo} className="size-full" />
+        </CinematicReveal>
       )}
 
-      <div className="mt-10 grid gap-8 sm:grid-cols-3">
+      <RevealGroup className="mt-10 grid gap-8 sm:grid-cols-3" itemClassName="flex h-full flex-col">
         <div className="sm:col-span-2">
           <SectionLabel>Descripción</SectionLabel>
           <p className="mt-2 text-base leading-relaxed text-foreground/85">{proyecto.descripcion}</p>
@@ -117,7 +121,7 @@ export default async function ProyectoPage({
             Hablar por WhatsApp
           </a>
         </div>
-      </div>
+      </RevealGroup>
     </article>
   );
 }

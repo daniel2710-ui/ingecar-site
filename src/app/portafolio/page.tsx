@@ -52,7 +52,7 @@ export default function PortafolioPage() {
           </p>
           <RevealGroup className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" itemClassName="flex h-full">
             {destacados.map((p, i) => (
-              <ProjectCard key={p.slug} proyecto={p} tone={i} />
+              <ProjectCard key={p.slug} proyecto={p} tone={i} cinematic />
             ))}
           </RevealGroup>
         </div>
