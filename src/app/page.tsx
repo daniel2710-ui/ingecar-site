@@ -157,7 +157,7 @@ export default function HomePage() {
         </div>
         <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" itemClassName="flex h-full">
           {destacados.map((p, i) => (
-            <ProjectCard key={p.slug} proyecto={p} tone={i} />
+            <ProjectCard key={p.slug} proyecto={p} tone={i} cinematic />
           ))}
         </RevealGroup>
         <Link href="/portafolio" className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary sm:hidden">
