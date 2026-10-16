@@ -8,11 +8,14 @@ export interface Servicio {
   descripcion: string;
   proceso: string[];
   faqs: { pregunta: string; respuesta: string }[];
+  /** Real photograph path (public/images/servicios/). */
+  imagen: string;
 }
 
 export const servicios: Servicio[] = [
   {
     slug: "electricidad-mantenimiento",
+    imagen: "/images/servicios/electricidad-mantenimiento.jpg",
     nombre: "Electricidad y mantenimiento",
     segmento: "ambos",
     resumen:
@@ -40,6 +43,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "automatizacion-industrial",
+    imagen: "/images/servicios/automatizacion-industrial.jpg",
     nombre: "Automatización industrial",
     segmento: "b2b",
     resumen:
@@ -62,6 +66,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "obras-civiles",
+    imagen: "/images/servicios/obras-civiles.jpg",
     nombre: "Arquitectura y obras civiles",
     segmento: "ambos",
     resumen: "Construcción, infraestructura y obra civil para proyectos empresariales y residenciales.",
@@ -83,6 +88,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "remodelaciones",
+    imagen: "/images/servicios/remodelaciones.jpg",
     nombre: "Remodelaciones y construcción residencial",
     segmento: "b2c",
     resumen: "Transformación de casas y apartamentos con acabados modernos y acompañamiento integral.",
@@ -109,6 +115,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "telecomunicaciones",
+    imagen: "/images/servicios/telecomunicaciones.jpg",
     nombre: "Telecomunicaciones",
     segmento: "b2b",
     resumen: "Infraestructura de telecomunicaciones para empresas y proyectos de infraestructura.",
@@ -130,6 +137,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "proteccion-ambiental",
+    imagen: "/images/servicios/proteccion-ambiental.jpg",
     nombre: "Protección y tecnología ambiental",
     segmento: "b2b",
     resumen: "Soluciones técnicas de protección ambiental para operaciones industriales.",
@@ -145,6 +153,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "pozos-aguas-subterraneas",
+    imagen: "/images/servicios/pozos-aguas-subterraneas.jpg",
     nombre: "Pozos de aguas subterráneas",
     segmento: "ambos",
     resumen: "Perforación y mantenimiento de pozos de agua para proyectos de infraestructura.",
@@ -160,6 +169,7 @@ export const servicios: Servicio[] = [
   },
   {
     slug: "estructuras-metalicas",
+    imagen: "/images/servicios/estructuras-metalicas.jpg",
     nombre: "Estructuras metálicas",
     segmento: "b2b",
     resumen: "Diseño, fabricación y montaje de estructuras metálicas industriales.",

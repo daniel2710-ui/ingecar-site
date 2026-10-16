@@ -80,7 +80,11 @@ export default async function ServicioPage({
               </a>
             </div>
           </div>
-          <PlaceholderImage label={servicio.nombre} className="aspect-[4/3] w-full rounded-2xl" />
+          <PlaceholderImage
+            label={servicio.nombre}
+            src={servicio.imagen}
+            className="aspect-[4/3] w-full rounded-2xl"
+          />
         </div>
       </section>
 
