@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu } from "lucide-react";
+import { motion } from "motion/react";
 import { cn } from "cn";
 import { Button } from "@/components/ui/button";
 import {
@@ -52,11 +53,18 @@ export function SiteHeader() {
                 href={link.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "text-sm font-medium transition-colors hover:text-primary",
+                  "relative pb-1 text-sm font-medium transition-colors hover:text-primary",
                   active ? "text-primary" : "text-foreground/80"
                 )}
               >
                 {link.label}
+                {active ? (
+                  <motion.span
+                    layoutId="nav-active-indicator"
+                    className="absolute inset-x-0 -bottom-[21px] h-0.5 bg-primary"
+                    transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                  />
+                ) : null}
               </Link>
             );
           })}
@@ -91,21 +99,28 @@ export function SiteHeader() {
               />
             </SheetHeader>
             <nav className="flex flex-col gap-1 p-4">
-              {navLinks.map((link) => {
+              {navLinks.map((link, i) => {
                 const active = pathname === link.href;
                 return (
-                  <SheetClose asChild key={link.href}>
-                    <Link
-                      href={link.href}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors",
-                        active ? "bg-secondary text-primary" : "text-foreground/85 hover:bg-muted"
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  </SheetClose>
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.035, duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                  >
+                    <SheetClose asChild>
+                      <Link
+                        href={link.href}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          "block rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors",
+                          active ? "bg-secondary text-primary" : "text-foreground/85 hover:bg-muted"
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    </SheetClose>
+                  </motion.div>
                 );
               })}
             </nav>

@@ -115,6 +115,10 @@
   /* Motion tokens — strong ease-out for entrances/feedback, ease-in-out for on-screen movement */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  /* Duration scale — microinteractions stay snappy, editorial entrances get more room to read */
+  --duration-micro: 140ms;
+  --duration-component: 200ms;
+  --duration-editorial: 450ms;
 }
 
 .dark {

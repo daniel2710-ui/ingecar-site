@@ -6,6 +6,7 @@ import { PlaceholderImage } from "@/components/site/placeholder-image";
 import { RevealGroup } from "@/components/site/reveal-group";
 import { getPostsByCategoria } from "@/lib/data/blog";
 import { blogCategorias } from "@/lib/data/certificaciones";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export function generateStaticParams() {
   return blogCategorias.map((c) => ({ slug: c.slug }));
@@ -37,7 +38,7 @@ export default async function BlogCategoriaPage({
         ← Todas las categorías
       </Link>
       <SectionLabel className="mt-5">Categoría</SectionLabel>
-      <h1 className="mt-2 font-heading text-3xl font-bold text-foreground">{categoria.nombre}</h1>
+      <h1 className="mt-2 font-heading text-3xl font-bold text-foreground"><TextReveal>{categoria.nombre}</TextReveal></h1>
 
       <RevealGroup className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" itemClassName="flex h-full">
         {posts.map((post, i) => (

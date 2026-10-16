@@ -6,6 +6,7 @@ import { PlaceholderImage } from "@/components/site/placeholder-image";
 import { blogPosts, getPostBySlug } from "@/lib/data/blog";
 import { blogCategorias } from "@/lib/data/certificaciones";
 import { whatsappLink } from "@/lib/site-config";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
@@ -48,7 +49,7 @@ export default async function BlogPostPage({
       ) : null}
 
       <h1 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-        {post.titulo}
+        <TextReveal>{post.titulo}</TextReveal>
       </h1>
       <p className="mt-3 font-data text-xs text-muted-foreground">
         {new Date(post.fecha).toLocaleDateString("es-CO", { year: "numeric", month: "long", day: "numeric" })}

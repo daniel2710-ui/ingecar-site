@@ -3,6 +3,7 @@ import { SectionLabel } from "@/components/site/section-label";
 import { StatStrip } from "@/components/site/stat-strip";
 import { Timeline } from "@/components/site/timeline";
 import { hitos } from "@/lib/data/hitos";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export const metadata: Metadata = {
   title: "Nosotros",
@@ -26,7 +27,7 @@ export default function NosotrosPage() {
       <section className="mx-auto max-w-4xl px-4 pt-14 pb-10 sm:px-6">
         <SectionLabel>Nosotros</SectionLabel>
         <h1 className="mt-2 font-heading text-4xl font-bold text-foreground">
-          Más de tres décadas construyendo confianza
+          <TextReveal>Más de tres décadas construyendo confianza</TextReveal>
         </h1>
         <p className="mt-5 text-base leading-relaxed text-foreground/85">
           INGENIERÍA DEL CARIBE LTDA. (INGECAR) fue constituida en 1992, como respuesta a la

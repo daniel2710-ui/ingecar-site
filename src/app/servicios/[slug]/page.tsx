@@ -19,6 +19,7 @@ import { getServicioBySlug, servicios } from "@/lib/data/servicios";
 import { getProyectosByServicio } from "@/lib/data/proyectos";
 import { getTestimoniosByServicio } from "@/lib/data/testimonios";
 import { whatsappLink } from "@/lib/site-config";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export function generateStaticParams() {
   return servicios.map((s) => ({ slug: s.slug }));
@@ -62,7 +63,7 @@ export default async function ServicioPage({
               </div>
             ) : null}
             <h1 className="mt-5 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-              {servicio.nombre}
+              <TextReveal>{servicio.nombre}</TextReveal>
             </h1>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
               {servicio.descripcion}

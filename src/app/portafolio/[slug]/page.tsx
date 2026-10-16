@@ -10,6 +10,7 @@ import { BeforeAfter } from "@/components/site/before-after";
 import { getProyectoBySlug, proyectos } from "@/lib/data/proyectos";
 import { getServicioBySlug } from "@/lib/data/servicios";
 import { whatsappLink } from "@/lib/site-config";
+import { TextReveal } from "@/components/site/text-reveal";
 
 const estadoLabel = {
   ejecutado: "Proyecto ejecutado",
@@ -56,7 +57,7 @@ export default async function ProyectoPage({
       </div>
 
       <h1 className="mt-4 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-        {proyecto.titulo}
+        <TextReveal>{proyecto.titulo}</TextReveal>
       </h1>
 
       <div className="mt-4 flex flex-wrap gap-5 text-sm text-muted-foreground">

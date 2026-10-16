@@ -14,6 +14,7 @@ import { servicios } from "@/lib/data/servicios";
 import { proyectos } from "@/lib/data/proyectos";
 import { testimonios } from "@/lib/data/testimonios";
 import { whatsappLink } from "@/lib/site-config";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export const metadata: Metadata = {
   title: "Soluciones para empresas",
@@ -33,7 +34,7 @@ export default function EmpresasPage() {
           <div>
             <SectionLabel>Soluciones para empresas</SectionLabel>
             <h1 className="mt-4 font-heading text-4xl font-bold leading-[1.1] text-foreground sm:text-5xl">
-              Ingeniería confiable para tu operación
+              <TextReveal>Ingeniería confiable para tu operación</TextReveal>
             </h1>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
               Mantenimiento recurrente, obras civiles, automatización industrial y cumplimiento

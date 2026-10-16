@@ -5,6 +5,7 @@ import { PlaceholderImage } from "@/components/site/placeholder-image";
 import { RevealGroup } from "@/components/site/reveal-group";
 import { blogPosts, getPostsDestacados } from "@/lib/data/blog";
 import { blogCategorias } from "@/lib/data/certificaciones";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -23,7 +24,7 @@ export default function BlogPage() {
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionLabel>Blog</SectionLabel>
       <h1 className="mt-2 font-heading text-4xl font-bold text-foreground">
-        Ingeniería, construcción y hogar
+        <TextReveal>Ingeniería, construcción y hogar</TextReveal>
       </h1>
       <p className="mt-4 max-w-2xl text-base text-muted-foreground">
         Contenido técnico, consejos y novedades para empresas y hogares.

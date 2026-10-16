@@ -5,6 +5,7 @@ import { SectionLabel } from "@/components/site/section-label";
 import { RevealGroup } from "@/components/site/reveal-group";
 import { certificaciones } from "@/lib/data/certificaciones";
 import { whatsappLink } from "@/lib/site-config";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export const metadata: Metadata = {
   title: "Certificaciones",
@@ -17,7 +18,7 @@ export default function CertificacionesPage() {
     <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
       <SectionLabel>Certificaciones</SectionLabel>
       <h1 className="mt-2 font-heading text-4xl font-bold text-foreground">
-        Respaldo técnico y documental
+        <TextReveal>Respaldo técnico y documental</TextReveal>
       </h1>
       <p className="mt-4 max-w-2xl text-base text-muted-foreground">
         Nuestras certificaciones están disponibles para revisión en procesos de contratación

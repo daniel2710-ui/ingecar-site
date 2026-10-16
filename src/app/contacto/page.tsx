@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionLabel } from "@/components/site/section-label";
 import { siteConfig, whatsappLink } from "@/lib/site-config";
+import { TextReveal } from "@/components/site/text-reveal";
 
 const schema = z.object({
   nombre: z.string().min(2, "Ingresa tu nombre"),
@@ -23,6 +24,15 @@ const schema = z.object({
   }),
 });
 type FormValues = z.infer<typeof schema>;
+
+function FieldError({ id, message }: { id: string; message?: string }) {
+  if (!message) return null;
+  return (
+    <p id={id} role="alert" className="text-xs text-destructive animate-in fade-in-0 duration-150">
+      {message}
+    </p>
+  );
+}
 
 export default function ContactoPage() {
   const [enviado, setEnviado] = useState(false);
@@ -41,7 +51,7 @@ export default function ContactoPage() {
   return (
     <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
       <SectionLabel>Contacto</SectionLabel>
-      <h1 className="mt-2 font-heading text-4xl font-bold text-foreground">Hablemos de tu proyecto</h1>
+      <h1 className="mt-2 font-heading text-4xl font-bold text-foreground"><TextReveal>Hablemos de tu proyecto</TextReveal></h1>
       <p className="mt-4 max-w-xl text-base text-muted-foreground">
         Nuestra atención es ágil y directa: coordina tu visita técnica o cotización por WhatsApp
         y nuestro equipo se desplaza hasta tu proyecto. No contamos con oficina de atención al
@@ -104,36 +114,65 @@ export default function ContactoPage() {
           </p>
 
           {enviado ? (
-            <div className="mt-6 flex flex-col items-center gap-2 rounded-xl bg-secondary/60 p-8 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out">
+            <div role="status" className="mt-6 flex flex-col items-center gap-2 rounded-xl bg-secondary/60 p-8 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out">
               <CheckCircle2 className="size-8 text-accent" />
               <p className="font-semibold text-foreground">Mensaje enviado</p>
               <p className="text-sm text-muted-foreground">Te responderemos lo antes posible.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4">
+            <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4" noValidate>
               <div className="flex flex-col gap-1.5">
                 <Label htmlFor="nombre">Nombre</Label>
-                <Input id="nombre" {...register("nombre")} />
-                {errors.nombre ? <p className="text-xs text-destructive">{errors.nombre.message}</p> : null}
+                <Input
+                  id="nombre"
+                  {...register("nombre")}
+                  aria-invalid={!!errors.nombre}
+                  aria-describedby={errors.nombre ? "nombre-error" : undefined}
+                />
+                <FieldError id="nombre-error" message={errors.nombre?.message} />
               </div>
               <div className="flex flex-col gap-1.5">
                 <Label htmlFor="email">Correo electrónico</Label>
-                <Input id="email" type="email" {...register("email")} />
-                {errors.email ? <p className="text-xs text-destructive">{errors.email.message}</p> : null}
+                <Input
+                  id="email"
+                  type="email"
+                  {...register("email")}
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
+                />
+                <FieldError id="email-error" message={errors.email?.message} />
               </div>
               <div className="flex flex-col gap-1.5">
                 <Label htmlFor="asunto">Asunto</Label>
-                <Input id="asunto" placeholder="Alianza comercial, proveedor, consulta..." {...register("asunto")} />
-                {errors.asunto ? <p className="text-xs text-destructive">{errors.asunto.message}</p> : null}
+                <Input
+                  id="asunto"
+                  placeholder="Alianza comercial, proveedor, consulta..."
+                  {...register("asunto")}
+                  aria-invalid={!!errors.asunto}
+                  aria-describedby={errors.asunto ? "asunto-error" : undefined}
+                />
+                <FieldError id="asunto-error" message={errors.asunto?.message} />
               </div>
               <div className="flex flex-col gap-1.5">
                 <Label htmlFor="mensaje">Mensaje</Label>
-                <Textarea id="mensaje" rows={4} {...register("mensaje")} />
-                {errors.mensaje ? <p className="text-xs text-destructive">{errors.mensaje.message}</p> : null}
+                <Textarea
+                  id="mensaje"
+                  rows={4}
+                  {...register("mensaje")}
+                  aria-invalid={!!errors.mensaje}
+                  aria-describedby={errors.mensaje ? "mensaje-error" : undefined}
+                />
+                <FieldError id="mensaje-error" message={errors.mensaje?.message} />
               </div>
 
               <label className="flex items-start gap-2.5 rounded-lg bg-muted p-4 text-sm">
-                <input type="checkbox" className="mt-0.5 size-4 accent-primary" {...register("tratamientoDatos")} />
+                <input
+                  type="checkbox"
+                  className="mt-0.5 size-4 accent-primary"
+                  aria-invalid={!!errors.tratamientoDatos}
+                  aria-describedby={errors.tratamientoDatos ? "tratamientoDatos-error" : undefined}
+                  {...register("tratamientoDatos")}
+                />
                 <span className="text-muted-foreground">
                   Autorizo el tratamiento de mis datos personales conforme a la{" "}
                   <Link href="/legal/politica-tratamiento-datos" className="text-primary underline underline-offset-2">
@@ -142,9 +181,7 @@ export default function ContactoPage() {
                   .
                 </span>
               </label>
-              {errors.tratamientoDatos ? (
-                <p className="text-xs text-destructive">{errors.tratamientoDatos.message}</p>
-              ) : null}
+              <FieldError id="tratamientoDatos-error" message={errors.tratamientoDatos?.message} />
 
               <Button type="submit" variant="cta" size="lg" className="h-12 rounded-lg" disabled={isSubmitting}>
                 {isSubmitting ? "Enviando..." : "Enviar mensaje"}

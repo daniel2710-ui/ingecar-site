@@ -12,6 +12,7 @@ import { servicios } from "@/lib/data/servicios";
 import { proyectos } from "@/lib/data/proyectos";
 import { testimonios } from "@/lib/data/testimonios";
 import { whatsappLink } from "@/lib/site-config";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export const metadata: Metadata = {
   title: "Remodelaciones y construcción residencial",
@@ -32,7 +33,7 @@ export default function HogaresPage() {
           <div>
             <SectionLabel>Remodelaciones y construcción residencial</SectionLabel>
             <h1 className="mt-4 font-heading text-4xl font-bold leading-[1.1] text-foreground sm:text-5xl">
-              Tu casa, transformada con acabados de calidad
+              <TextReveal>Tu casa, transformada con acabados de calidad</TextReveal>
             </h1>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
               Remodelamos cocinas, baños y espacios completos de tu casa o apartamento, con

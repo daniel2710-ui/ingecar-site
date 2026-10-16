@@ -36,6 +36,15 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+function FieldError({ id, message }: { id: string; message?: string }) {
+  if (!message) return null;
+  return (
+    <p id={id} role="alert" className="text-xs text-destructive animate-in fade-in-0 duration-150">
+      {message}
+    </p>
+  );
+}
+
 export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido?: string }) {
   const [enviado, setEnviado] = useState(false);
   const {
@@ -62,7 +71,10 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
 
   if (enviado) {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-10 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out">
+      <div
+        role="status"
+        className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-10 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out"
+      >
         <CheckCircle2 className="size-10 text-accent" />
         <p className="font-heading text-lg font-bold">Solicitud enviada</p>
         <p className="max-w-sm text-sm text-muted-foreground">
@@ -73,24 +85,43 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="nombre">Nombre completo</Label>
-          <Input id="nombre" {...register("nombre")} placeholder="Tu nombre" />
-          {errors.nombre ? <p className="text-xs text-destructive">{errors.nombre.message}</p> : null}
+          <Input
+            id="nombre"
+            {...register("nombre")}
+            placeholder="Tu nombre"
+            aria-invalid={!!errors.nombre}
+            aria-describedby={errors.nombre ? "nombre-error" : undefined}
+          />
+          <FieldError id="nombre-error" message={errors.nombre?.message} />
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="telefono">Teléfono</Label>
-          <Input id="telefono" {...register("telefono")} placeholder="300 000 0000" />
-          {errors.telefono ? <p className="text-xs text-destructive">{errors.telefono.message}</p> : null}
+          <Input
+            id="telefono"
+            {...register("telefono")}
+            placeholder="300 000 0000"
+            aria-invalid={!!errors.telefono}
+            aria-describedby={errors.telefono ? "telefono-error" : undefined}
+          />
+          <FieldError id="telefono-error" message={errors.telefono?.message} />
         </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="email">Correo electrónico</Label>
-        <Input id="email" type="email" {...register("email")} placeholder="nombre@correo.com" />
-        {errors.email ? <p className="text-xs text-destructive">{errors.email.message}</p> : null}
+        <Input
+          id="email"
+          type="email"
+          {...register("email")}
+          placeholder="nombre@correo.com"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
+        />
+        <FieldError id="email-error" message={errors.email?.message} />
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
@@ -116,7 +147,12 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
             defaultValue={watch("servicioSlug")}
             onValueChange={(v) => setValue("servicioSlug", v)}
           >
-            <SelectTrigger id="servicioSlug" className="w-full">
+            <SelectTrigger
+              id="servicioSlug"
+              className="w-full"
+              aria-invalid={!!errors.servicioSlug}
+              aria-describedby={errors.servicioSlug ? "servicioSlug-error" : undefined}
+            >
               <SelectValue placeholder="Selecciona un servicio" />
             </SelectTrigger>
             <SelectContent>
@@ -127,17 +163,21 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
               ))}
             </SelectContent>
           </Select>
-          {errors.servicioSlug ? (
-            <p className="text-xs text-destructive">{errors.servicioSlug.message}</p>
-          ) : null}
+          <FieldError id="servicioSlug-error" message={errors.servicioSlug?.message} />
         </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="ubicacion">Ciudad / ubicación del proyecto</Label>
-          <Input id="ubicacion" {...register("ubicacion")} placeholder="Barranquilla, Atlántico" />
-          {errors.ubicacion ? <p className="text-xs text-destructive">{errors.ubicacion.message}</p> : null}
+          <Input
+            id="ubicacion"
+            {...register("ubicacion")}
+            placeholder="Barranquilla, Atlántico"
+            aria-invalid={!!errors.ubicacion}
+            aria-describedby={errors.ubicacion ? "ubicacion-error" : undefined}
+          />
+          <FieldError id="ubicacion-error" message={errors.ubicacion?.message} />
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="presupuesto">Presupuesto aproximado (opcional)</Label>
@@ -147,13 +187,26 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
 
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="mensaje">Cuéntanos sobre tu proyecto</Label>
-        <Textarea id="mensaje" rows={4} {...register("mensaje")} placeholder="Describe el alcance, el espacio o el tipo de obra que necesitas" />
-        {errors.mensaje ? <p className="text-xs text-destructive">{errors.mensaje.message}</p> : null}
+        <Textarea
+          id="mensaje"
+          rows={4}
+          {...register("mensaje")}
+          placeholder="Describe el alcance, el espacio o el tipo de obra que necesitas"
+          aria-invalid={!!errors.mensaje}
+          aria-describedby={errors.mensaje ? "mensaje-error" : undefined}
+        />
+        <FieldError id="mensaje-error" message={errors.mensaje?.message} />
       </div>
 
       <div className="flex flex-col gap-3 rounded-lg bg-muted p-4">
         <label className="flex items-start gap-2.5 text-sm">
-          <input type="checkbox" className="mt-0.5 size-4 accent-primary" {...register("tratamientoDatos")} />
+          <input
+            type="checkbox"
+            className="mt-0.5 size-4 accent-primary"
+            aria-invalid={!!errors.tratamientoDatos}
+            aria-describedby={errors.tratamientoDatos ? "tratamientoDatos-error" : undefined}
+            {...register("tratamientoDatos")}
+          />
           <span className="text-muted-foreground">
             Autorizo a INGECAR LTDA. el tratamiento de mis datos personales conforme a la{" "}
             <Link href="/legal/politica-tratamiento-datos" className="text-primary underline underline-offset-2">
@@ -162,9 +215,7 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
             , de acuerdo con la Ley 1581 de 2012.
           </span>
         </label>
-        {errors.tratamientoDatos ? (
-          <p className="text-xs text-destructive">{errors.tratamientoDatos.message}</p>
-        ) : null}
+        <FieldError id="tratamientoDatos-error" message={errors.tratamientoDatos?.message} />
 
         <label className="flex items-start gap-2.5 text-sm">
           <input type="checkbox" className="mt-0.5 size-4 accent-primary" {...register("comunicacionesMarketing")} />

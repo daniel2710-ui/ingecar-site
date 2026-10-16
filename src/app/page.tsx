@@ -9,6 +9,7 @@ import { ServiceCard } from "@/components/site/service-card";
 import { ProjectCard } from "@/components/site/project-card";
 import { TestimonialCard } from "@/components/site/testimonial-card";
 import { RevealGroup } from "@/components/site/reveal-group";
+import { TextReveal } from "@/components/site/text-reveal";
 import { servicios } from "@/lib/data/servicios";
 import { getProyectosDestacados } from "@/lib/data/proyectos";
 import { getTestimoniosDestacados } from "@/lib/data/testimonios";
@@ -27,7 +28,7 @@ export default function HomePage() {
             <div>
               <SectionLabel>Ingeniería · Construcción · Remodelación</SectionLabel>
               <h1 className="mt-4 font-heading text-4xl font-bold leading-[1.1] text-foreground sm:text-5xl">
-                Soluciones de ingeniería, construcción y remodelación para empresas y hogares
+                <TextReveal>Soluciones de ingeniería, construcción y remodelación para empresas y hogares</TextReveal>
               </h1>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
                 Transformamos tus proyectos en realidad con experiencia, calidad y soluciones

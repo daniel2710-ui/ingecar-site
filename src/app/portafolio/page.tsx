@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { SectionLabel } from "@/components/site/section-label";
 import { ProjectCard } from "@/components/site/project-card";
 import { RevealGroup } from "@/components/site/reveal-group";
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { proyectos } from "@/lib/data/proyectos";
 import { servicios } from "@/lib/data/servicios";
+import { TextReveal } from "@/components/site/text-reveal";
 
 const anios = Array.from(new Set(proyectos.map((p) => p.anio))).sort((a, b) => b - a);
 
@@ -36,7 +38,7 @@ export default function PortafolioPage() {
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionLabel>Portafolio</SectionLabel>
       <h1 className="mt-2 font-heading text-4xl font-bold text-foreground">
-        Proyectos ejecutados
+        <TextReveal>Proyectos ejecutados</TextReveal>
       </h1>
       <p className="mt-4 max-w-2xl text-base text-muted-foreground">
         Obras y proyectos para empresas y hogares, con más de tres décadas de experiencia
@@ -97,10 +99,25 @@ export default function PortafolioPage() {
         </Select>
       </div>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {filtrados.map((p, i) => (
-          <ProjectCard key={p.slug} proyecto={p} tone={i} />
-        ))}
+      <p role="status" aria-live="polite" className="mt-6 text-sm text-muted-foreground">
+        {filtrados.length} {filtrados.length === 1 ? "proyecto encontrado" : "proyectos encontrados"}
+      </p>
+
+      <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <AnimatePresence initial={false}>
+          {filtrados.map((p, i) => (
+            <motion.div
+              key={p.slug}
+              layout
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+            >
+              <ProjectCard proyecto={p} tone={i} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
       {filtrados.length === 0 ? (
         <p className="mt-10 text-center text-sm text-muted-foreground">

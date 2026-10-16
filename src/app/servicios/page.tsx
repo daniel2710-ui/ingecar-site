@@ -3,6 +3,7 @@ import { SectionLabel } from "@/components/site/section-label";
 import { ServiceCard } from "@/components/site/service-card";
 import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
+import { TextReveal } from "@/components/site/text-reveal";
 
 export const metadata: Metadata = {
   title: "Servicios",
@@ -15,7 +16,7 @@ export default function ServiciosPage() {
     <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <SectionLabel>Servicios</SectionLabel>
       <h1 className="mt-2 font-heading text-4xl font-bold text-foreground">
-        Soluciones integrales de ingeniería
+        <TextReveal>Soluciones integrales de ingeniería</TextReveal>
       </h1>
       <p className="mt-4 max-w-2xl text-base text-muted-foreground">
         Ocho líneas de servicio para atender proyectos empresariales y residenciales en toda
