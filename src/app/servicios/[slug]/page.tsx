@@ -11,6 +11,7 @@ import {
 import { SectionLabel } from "@/components/site/section-label";
 import { ProjectCard } from "@/components/site/project-card";
 import { TestimonialCard } from "@/components/site/testimonial-card";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { QuoteForm } from "@/components/site/quote-form";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
 import { serviceIcons } from "@/lib/service-icons";
@@ -105,11 +106,11 @@ export default async function ServicioPage({
           <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
             Proyectos relacionados
           </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" itemClassName="flex h-full">
             {proyectosRelacionados.map((p, i) => (
               <ProjectCard key={p.slug} proyecto={p} tone={i} />
             ))}
-          </div>
+          </RevealGroup>
         </section>
       ) : null}
 
@@ -121,11 +122,11 @@ export default async function ServicioPage({
             <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
               Clientes que confiaron en este servicio
             </h2>
-            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" itemClassName="flex h-full">
               {testimoniosRelacionados.map((t, i) => (
                 <TestimonialCard key={i} testimonio={t} />
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </section>
       ) : null}

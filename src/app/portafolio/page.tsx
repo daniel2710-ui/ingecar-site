@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { SectionLabel } from "@/components/site/section-label";
 import { ProjectCard } from "@/components/site/project-card";
+import { RevealGroup } from "@/components/site/reveal-group";
 import {
   Select,
   SelectContent,
@@ -47,11 +48,11 @@ export default function PortafolioPage() {
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
             Proyectos destacados
           </p>
-          <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <RevealGroup className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" itemClassName="flex h-full">
             {destacados.map((p, i) => (
               <ProjectCard key={p.slug} proyecto={p} tone={i} />
             ))}
-          </div>
+          </RevealGroup>
         </div>
       ) : null}
 

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
+import { BeforeAfter } from "@/components/site/before-after";
 import { getProyectoBySlug, proyectos } from "@/lib/data/proyectos";
 import { getServicioBySlug } from "@/lib/data/servicios";
 import { whatsappLink } from "@/lib/site-config";
@@ -78,10 +79,11 @@ export default async function ProyectoPage({
         </p>
       ) : null}
 
-      <PlaceholderImage
-        label={proyecto.antesDespues ? `${proyecto.titulo} — antes y después` : proyecto.titulo}
-        className="mt-8 aspect-video w-full rounded-2xl"
-      />
+      {proyecto.antesDespues ? (
+        <BeforeAfter label={proyecto.titulo} className="mt-8 aspect-video w-full" />
+      ) : (
+        <PlaceholderImage label={proyecto.titulo} className="mt-8 aspect-video w-full rounded-2xl" />
+      )}
 
       <div className="mt-10 grid gap-8 sm:grid-cols-3">
         <div className="sm:col-span-2">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SectionLabel } from "@/components/site/section-label";
 import { StatStrip } from "@/components/site/stat-strip";
+import { Timeline } from "@/components/site/timeline";
 import { hitos } from "@/lib/data/hitos";
 
 export const metadata: Metadata = {
@@ -80,23 +81,7 @@ export default function NosotrosPage() {
         <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
           Línea de tiempo
         </h2>
-        <ol className="mt-8 flex flex-col gap-0">
-          {hitos.map((h, i) => (
-            <li key={h.anio} className="relative flex gap-5 pb-8 last:pb-0">
-              <div className="flex flex-col items-center">
-                <span className="flex size-3 shrink-0 rounded-full bg-primary" />
-                {i < hitos.length - 1 ? (
-                  <span className="mt-1 w-px flex-1 bg-border" />
-                ) : null}
-              </div>
-              <div className="-mt-1 pb-2">
-                <p className="font-data text-sm font-medium text-primary">{h.anio}</p>
-                <p className="mt-1 font-heading text-base font-bold text-foreground">{h.titulo}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{h.descripcion}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <Timeline hitos={hitos} />
       </section>
 
       <section className="bg-primary py-16 text-center">

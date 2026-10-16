@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
+import { cn } from "cn";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 const navLinks = [
   { href: "/empresas", label: "Empresas" },
@@ -18,6 +27,7 @@ const navLinks = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -34,15 +44,22 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const active = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  active ? "text-primary" : "text-foreground/80"
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="hidden lg:block">
@@ -51,37 +68,57 @@ export function SiteHeader() {
           </Button>
         </div>
 
-        <button
-          type="button"
-          aria-label={open ? "Cerrar menú" : "Abrir menú"}
-          className="flex size-10 items-center justify-center rounded-lg text-foreground lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
-      </div>
-
-      {open ? (
-        <div className="border-t border-border bg-background px-4 pb-6 lg:hidden">
-          <nav className="flex flex-col gap-1 pt-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-[15px] font-medium text-foreground/85 hover:bg-muted"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-          <Button asChild variant="cta" size="lg" className="mt-3 w-full rounded-lg h-11">
-            <Link href="/cotizar" onClick={() => setOpen(false)}>
-              Solicitar cotización
-            </Link>
+        <Sheet open={open} onOpenChange={setOpen}>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Abrir menú"
+            aria-expanded={open}
+            className="size-10 lg:hidden"
+            onClick={() => setOpen(true)}
+          >
+            <Menu className="size-5" />
           </Button>
-        </div>
-      ) : null}
+          <SheetContent side="right" className="flex w-4/5 flex-col gap-0 p-0">
+            <SheetHeader className="border-b border-border p-4">
+              <SheetTitle className="sr-only">Menú de navegación</SheetTitle>
+              <Image
+                src="/images/logo.jpg"
+                alt="INGECAR LTDA. — Ingeniería del Caribe"
+                width={120}
+                height={34}
+                className="h-8 w-auto"
+              />
+            </SheetHeader>
+            <nav className="flex flex-col gap-1 p-4">
+              {navLinks.map((link) => {
+                const active = pathname === link.href;
+                return (
+                  <SheetClose asChild key={link.href}>
+                    <Link
+                      href={link.href}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "rounded-lg px-3 py-2.5 text-[15px] font-medium transition-colors",
+                        active ? "bg-secondary text-primary" : "text-foreground/85 hover:bg-muted"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </SheetClose>
+                );
+              })}
+            </nav>
+            <div className="mt-auto p-4">
+              <SheetClose asChild>
+                <Button asChild variant="cta" size="lg" className="w-full rounded-lg h-11">
+                  <Link href="/cotizar">Solicitar cotización</Link>
+                </Button>
+              </SheetClose>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
     </header>
   );
 }

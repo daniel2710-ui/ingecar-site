@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SectionLabel } from "@/components/site/section-label";
 import { ServiceCard } from "@/components/site/service-card";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
 
 export const metadata: Metadata = {
@@ -20,11 +21,11 @@ export default function ServiciosPage() {
         Ocho líneas de servicio para atender proyectos empresariales y residenciales en toda
         Colombia, respaldadas por más de tres décadas de experiencia.
       </p>
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <RevealGroup className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" itemClassName="flex h-full">
         {servicios.map((s) => (
           <ServiceCard key={s.slug} servicio={s} />
         ))}
-      </div>
+      </RevealGroup>
     </section>
   );
 }

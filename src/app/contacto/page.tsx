@@ -33,6 +33,7 @@ export default function ContactoPage() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   async function onSubmit() {
+    // Simulated submission — no backend/email integration yet (out of scope for this design phase).
     await new Promise((r) => setTimeout(r, 500));
     setEnviado(true);
   }
@@ -103,7 +104,7 @@ export default function ContactoPage() {
           </p>
 
           {enviado ? (
-            <div className="mt-6 flex flex-col items-center gap-2 rounded-xl bg-secondary/60 p-8 text-center">
+            <div className="mt-6 flex flex-col items-center gap-2 rounded-xl bg-secondary/60 p-8 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out">
               <CheckCircle2 className="size-8 text-accent" />
               <p className="font-semibold text-foreground">Mensaje enviado</p>
               <p className="text-sm text-muted-foreground">Te responderemos lo antes posible.</p>

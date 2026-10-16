@@ -9,7 +9,7 @@ export function ServiceCard({ servicio }: { servicio: Servicio }) {
   return (
     <Link
       href={`/servicios/${servicio.slug}`}
-      className="group flex flex-col rounded-xl border border-border bg-card p-6 transition-colors hover:border-primary/40"
+      className="card-interactive group flex flex-col rounded-xl border border-border bg-card p-6 hover:border-primary/40"
     >
       <div className="flex size-11 items-center justify-center rounded-lg bg-secondary text-primary">
         {Icon ? <Icon className="size-5" strokeWidth={1.75} /> : null}

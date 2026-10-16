@@ -13,7 +13,7 @@ export function ProjectCard({ proyecto, tone = 0 }: { proyecto: Proyecto; tone?:
   return (
     <Link
       href={`/portafolio/${proyecto.slug}`}
-      className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-colors hover:border-primary/40"
+      className="card-interactive group flex flex-col overflow-hidden rounded-xl border border-border bg-card hover:border-primary/40"
     >
       <PlaceholderImage label={proyecto.titulo} tone={tone} className="aspect-[4/3] w-full" />
       <div className="flex flex-1 flex-col p-5">

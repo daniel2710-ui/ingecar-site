@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, FileCheck2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
@@ -8,6 +8,8 @@ import { ServiceCard } from "@/components/site/service-card";
 import { ProjectCard } from "@/components/site/project-card";
 import { TestimonialCard } from "@/components/site/testimonial-card";
 import { TrustLogos } from "@/components/site/trust-logos";
+import { StatStrip } from "@/components/site/stat-strip";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
 import { proyectos } from "@/lib/data/proyectos";
 import { testimonios } from "@/lib/data/testimonios";
@@ -52,8 +54,10 @@ export default function EmpresasPage() {
         </div>
       </section>
 
+      {/* Credenciales — el decisor B2B busca cumplimiento antes que estética */}
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6">
-        <div className="flex items-center gap-3 rounded-xl border border-border bg-card p-5">
+        <StatStrip />
+        <div className="mt-6 flex items-center gap-3 rounded-xl border border-border bg-card p-5">
           <ShieldCheck className="size-6 shrink-0 text-primary" />
           <p className="text-sm text-muted-foreground">
             Certificados en OHSAS 18001:2007, RUC y RUP — listos para procesos de contratación
@@ -70,14 +74,26 @@ export default function EmpresasPage() {
 
       <section className="bg-secondary/40 py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionLabel>Servicios para empresas</SectionLabel>
-          <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
-            Soluciones técnicas para tu operación
-          </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {serviciosB2B.map((s) => (
-              <ServiceCard key={s.slug} servicio={s} />
-            ))}
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <SectionLabel>Servicios para empresas</SectionLabel>
+              <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
+                Soluciones técnicas para tu operación
+              </h2>
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                Contratos de mantenimiento recurrente y proyectos técnicos con trazabilidad y
+                cumplimiento documentado en cada etapa.
+              </p>
+              <div className="mt-6 flex items-center gap-2 font-data text-xs text-primary/80">
+                <FileCheck2 className="size-4" />
+                {serviciosB2B.length} líneas de servicio disponibles para tu operación
+              </div>
+            </div>
+            <RevealGroup className="grid gap-5 sm:grid-cols-2" itemClassName="flex h-full">
+              {serviciosB2B.map((s) => (
+                <ServiceCard key={s.slug} servicio={s} />
+              ))}
+            </RevealGroup>
           </div>
         </div>
       </section>
@@ -86,11 +102,11 @@ export default function EmpresasPage() {
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <SectionLabel>Portafolio empresarial</SectionLabel>
           <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">Proyectos para empresas</h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-3" itemClassName="flex h-full">
             {proyectosB2B.map((p, i) => (
               <ProjectCard key={p.slug} proyecto={p} tone={i} />
             ))}
-          </div>
+          </RevealGroup>
         </section>
       ) : null}
 
@@ -98,11 +114,11 @@ export default function EmpresasPage() {
         <section className="bg-secondary/40 py-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionLabel>Testimonios</SectionLabel>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+            <RevealGroup className="mt-6 grid gap-5 sm:grid-cols-2" itemClassName="flex h-full">
               {testimoniosB2B.map((t, i) => (
                 <TestimonialCard key={i} testimonio={t} />
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </section>
       ) : null}

@@ -3,9 +3,11 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
+import { BeforeAfter } from "@/components/site/before-after";
 import { ServiceCard } from "@/components/site/service-card";
 import { ProjectCard } from "@/components/site/project-card";
 import { TestimonialCard } from "@/components/site/testimonial-card";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
 import { proyectos } from "@/lib/data/proyectos";
 import { testimonios } from "@/lib/data/testimonios";
@@ -20,6 +22,7 @@ export const metadata: Metadata = {
 export default function HogaresPage() {
   const serviciosB2C = servicios.filter((s) => s.segmento === "b2c" || s.segmento === "ambos");
   const proyectosB2C = proyectos.filter((p) => p.segmento === "b2c").slice(0, 3);
+  const proyectosAntesDespues = proyectos.filter((p) => p.segmento === "b2c" && p.antesDespues);
   const testimoniosB2C = testimonios.filter((t) => t.autorTipo === "particular").slice(0, 2);
 
   return (
@@ -50,31 +53,59 @@ export default function HogaresPage() {
         </div>
       </section>
 
+      {/* Antes/después — la pieza central del storytelling en remodelaciones (slider interactivo) */}
+      {proyectosAntesDespues.length > 0 ? (
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <SectionLabel>Antes y después</SectionLabel>
+          <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
+            Arrastra para ver la transformación
+          </h2>
+          <p className="mt-3 max-w-xl text-sm text-muted-foreground">
+            Desliza sobre cada proyecto para comparar el espacio original con el resultado entregado.
+          </p>
+          <RevealGroup className="mt-8 grid gap-6 sm:grid-cols-2" itemClassName="flex h-full flex-col">
+            {proyectosAntesDespues.map((p) => (
+              <Link key={p.slug} href={`/portafolio/${p.slug}`} className="group flex flex-col gap-3">
+                <BeforeAfter label={p.titulo} className="aspect-[4/3] w-full" />
+                <div>
+                  <p className="font-heading text-base font-bold text-foreground group-hover:text-primary">
+                    {p.titulo}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    {p.ubicacion} · {p.duracion ?? `${p.anio}`}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </RevealGroup>
+        </section>
+      ) : null}
+
       <section className="bg-secondary/40 py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionLabel>Servicios para tu hogar</SectionLabel>
           <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
             Todo lo que tu casa necesita
           </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" itemClassName="flex h-full">
             {serviciosB2C.map((s) => (
               <ServiceCard key={s.slug} servicio={s} />
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
       {proyectosB2C.length > 0 ? (
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <SectionLabel>Antes y después</SectionLabel>
+          <SectionLabel>Portafolio residencial</SectionLabel>
           <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
-            Transformaciones recientes
+            Más transformaciones recientes
           </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-3" itemClassName="flex h-full">
             {proyectosB2C.map((p, i) => (
               <ProjectCard key={p.slug} proyecto={p} tone={i} />
             ))}
-          </div>
+          </RevealGroup>
         </section>
       ) : null}
 
@@ -82,11 +113,11 @@ export default function HogaresPage() {
         <section className="bg-secondary/40 py-16">
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <SectionLabel>Testimonios</SectionLabel>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+            <RevealGroup className="mt-6 grid gap-5 sm:grid-cols-2" itemClassName="flex h-full">
               {testimoniosB2C.map((t, i) => (
                 <TestimonialCard key={i} testimonio={t} />
               ))}
-            </div>
+            </RevealGroup>
           </div>
         </section>
       ) : null}

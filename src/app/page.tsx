@@ -8,6 +8,7 @@ import { TrustLogos } from "@/components/site/trust-logos";
 import { ServiceCard } from "@/components/site/service-card";
 import { ProjectCard } from "@/components/site/project-card";
 import { TestimonialCard } from "@/components/site/testimonial-card";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
 import { getProyectosDestacados } from "@/lib/data/proyectos";
 import { getTestimoniosDestacados } from "@/lib/data/testimonios";
@@ -22,31 +23,33 @@ export default function HomePage() {
       {/* Hero */}
       <section className="mx-auto max-w-6xl px-4 pt-14 pb-16 sm:px-6 sm:pt-20">
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
-          <div>
-            <SectionLabel>Ingeniería · Construcción · Remodelación</SectionLabel>
-            <h1 className="mt-4 font-heading text-4xl font-bold leading-[1.1] text-foreground sm:text-5xl">
-              Soluciones de ingeniería, construcción y remodelación para empresas y hogares
-            </h1>
-            <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Transformamos tus proyectos en realidad con experiencia, calidad y soluciones
-              integrales en construcción, instalaciones eléctricas, mantenimiento y remodelaciones.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button asChild variant="cta" size="lg" className="h-12 rounded-lg px-6 text-base">
-                <Link href="/cotizar">Solicitar cotización</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="h-12 rounded-lg px-6 text-base">
-                <a href={whatsappLink("Hola, quiero más información sobre los servicios de INGECAR.")} target="_blank" rel="noopener noreferrer">
-                  Hablar por WhatsApp
-                </a>
-              </Button>
+          <RevealGroup className="contents" stagger={90}>
+            <div>
+              <SectionLabel>Ingeniería · Construcción · Remodelación</SectionLabel>
+              <h1 className="mt-4 font-heading text-4xl font-bold leading-[1.1] text-foreground sm:text-5xl">
+                Soluciones de ingeniería, construcción y remodelación para empresas y hogares
+              </h1>
+              <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
+                Transformamos tus proyectos en realidad con experiencia, calidad y soluciones
+                integrales en construcción, instalaciones eléctricas, mantenimiento y remodelaciones.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button asChild variant="cta" size="lg" className="h-12 rounded-lg px-6 text-base">
+                  <Link href="/cotizar">Solicitar cotización</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="h-12 rounded-lg px-6 text-base">
+                  <a href={whatsappLink("Hola, quiero más información sobre los servicios de INGECAR.")} target="_blank" rel="noopener noreferrer">
+                    Hablar por WhatsApp
+                  </a>
+                </Button>
+              </div>
             </div>
-          </div>
-          <PlaceholderImage
-            label="Proyecto INGECAR en ejecución"
-            tone={0}
-            className="aspect-[4/3] w-full rounded-2xl lg:aspect-square"
-          />
+            <PlaceholderImage
+              label="Proyecto INGECAR en ejecución"
+              tone={0}
+              className="aspect-[4/3] w-full rounded-2xl lg:aspect-square"
+            />
+          </RevealGroup>
         </div>
       </section>
 
@@ -112,11 +115,11 @@ export default function HomePage() {
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
             Soluciones integrales de ingeniería
           </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" itemClassName="flex h-full">
             {servicios.map((s) => (
               <ServiceCard key={s.slug} servicio={s} />
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
@@ -133,11 +136,11 @@ export default function HomePage() {
             Ver todo el portafolio <ArrowRight className="size-3.5" />
           </Link>
         </div>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" itemClassName="flex h-full">
           {destacados.map((p, i) => (
             <ProjectCard key={p.slug} proyecto={p} tone={i} />
           ))}
-        </div>
+        </RevealGroup>
         <Link href="/portafolio" className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary sm:hidden">
           Ver todo el portafolio <ArrowRight className="size-3.5" />
         </Link>
@@ -150,11 +153,11 @@ export default function HomePage() {
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
             Lo que dicen nuestros clientes
           </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-3" itemClassName="flex h-full">
             {testimonios.map((t, i) => (
               <TestimonialCard key={i} testimonio={t} />
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 

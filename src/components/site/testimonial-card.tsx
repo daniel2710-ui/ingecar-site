@@ -3,7 +3,7 @@ import type { Testimonio } from "@/lib/data/testimonios";
 
 export function TestimonialCard({ testimonio }: { testimonio: Testimonio }) {
   return (
-    <div className="flex flex-col rounded-xl border border-border bg-card p-6">
+    <div className="card-interactive flex flex-col rounded-xl border border-border bg-card p-6">
       {testimonio.calificacion ? (
         <div className="flex gap-0.5 text-cta">
           {Array.from({ length: testimonio.calificacion }).map((_, i) => (

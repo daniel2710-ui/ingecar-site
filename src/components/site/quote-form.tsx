@@ -54,13 +54,15 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
   });
 
   async function onSubmit() {
+    // Simulated submission — no backend/email integration yet (out of scope for this design phase).
+    // Wire to Resend/Supabase before launch so this success state reflects a real send.
     await new Promise((r) => setTimeout(r, 600));
     setEnviado(true);
   }
 
   if (enviado) {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-10 text-center">
+      <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-10 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out">
         <CheckCircle2 className="size-10 text-accent" />
         <p className="font-heading text-lg font-bold">Solicitud enviada</p>
         <p className="max-w-sm text-sm text-muted-foreground">
