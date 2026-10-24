@@ -35,16 +35,23 @@ export function ProjectCard({
         <PlaceholderImage label={proyecto.titulo} tone={tone} className="aspect-[4/3] w-full" />
       )}
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="outline" className="text-[11px] font-medium">
-            {proyecto.segmento === "b2b" ? "Empresas" : proyecto.segmento === "b2c" ? "Hogares" : "Empresas y hogares"}
-          </Badge>
-          <span className="font-data text-[11px] text-muted-foreground">{proyecto.anio}</span>
-        </div>
+        <Badge variant="outline" className="w-fit text-[11px] font-medium">
+          {proyecto.segmento === "b2b" ? "Empresas" : proyecto.segmento === "b2c" ? "Hogares" : "Empresas y hogares"}
+        </Badge>
         <h3 className="mt-3 font-heading text-base font-bold text-foreground">
           {proyecto.titulo}
         </h3>
         <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{proyecto.descripcion}</p>
+        <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-3">
+          <div>
+            <p className="font-data text-[10px] uppercase tracking-wide text-muted-foreground">Ubicación</p>
+            <p className="mt-0.5 truncate text-xs font-medium text-foreground">{proyecto.ubicacion}</p>
+          </div>
+          <div>
+            <p className="font-data text-[10px] uppercase tracking-wide text-muted-foreground">Año</p>
+            <p className="mt-0.5 font-data text-xs font-medium text-foreground">{proyecto.anio}</p>
+          </div>
+        </div>
         <span className="mt-3 text-[11px] font-medium uppercase tracking-wide text-primary/70">
           {estadoLabel[proyecto.estado]}
         </span>
