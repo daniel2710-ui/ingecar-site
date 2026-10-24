@@ -78,7 +78,12 @@ export default function HogaresPage() {
           <RevealGroup className="mt-8 grid gap-6 sm:grid-cols-2" itemClassName="flex h-full flex-col">
             {proyectosAntesDespues.map((p) => (
               <Link key={p.slug} href={`/portafolio/${p.slug}`} className="group flex flex-col gap-3">
-                <BeforeAfter label={p.titulo} className="aspect-[4/3] w-full" />
+                <BeforeAfter
+                  label={p.titulo}
+                  srcAntes={p.imagenAntes}
+                  srcDespues={p.imagenDespues}
+                  className="aspect-[4/3] w-full"
+                />
                 <div>
                   <p className="font-heading text-base font-bold text-foreground group-hover:text-primary">
                     {p.titulo}

@@ -45,7 +45,7 @@ export default function NosotrosPage() {
           <DuotoneReveal className="aspect-[4/3] w-full overflow-hidden rounded-2xl lg:aspect-square">
             <PlaceholderImage
               label="Equipo técnico INGECAR"
-              src="/images/servicios/obras-civiles.jpg"
+              src="/images/nosotros-equipo.jpg"
               className="size-full"
             />
           </DuotoneReveal>

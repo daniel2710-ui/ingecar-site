@@ -22,7 +22,9 @@ export function ProjectCard({
    * B2B/B2C landings) so it stays one deliberate moment, not a tic. */
   cinematic?: boolean;
 }) {
-  const image = <PlaceholderImage label={proyecto.titulo} tone={tone} className="size-full" />;
+  const image = (
+    <PlaceholderImage label={proyecto.titulo} src={proyecto.imagen} tone={tone} className="size-full" />
+  );
 
   return (
     <Link
@@ -32,7 +34,12 @@ export function ProjectCard({
       {cinematic ? (
         <CinematicReveal className="aspect-[4/3] w-full">{image}</CinematicReveal>
       ) : (
-        <PlaceholderImage label={proyecto.titulo} tone={tone} className="aspect-[4/3] w-full" />
+        <PlaceholderImage
+          label={proyecto.titulo}
+          src={proyecto.imagen}
+          tone={tone}
+          className="aspect-[4/3] w-full"
+        />
       )}
       <div className="flex flex-1 flex-col p-5">
         <Badge variant="outline" className="w-fit text-[11px] font-medium">

@@ -64,6 +64,7 @@ export default function HomePage() {
           >
             <PlaceholderImage
               label="Equipo INGECAR en obra"
+              src="/images/home-equipo-ingecar.jpg"
               tone={1}
               className="absolute inset-0 transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
             />

@@ -16,6 +16,10 @@ export interface Proyecto {
   estado: "ejecutado" | "certificado" | "referencia_contractual";
   destacado: boolean;
   antesDespues: boolean;
+  /** Real photograph paths (public/images/portafolio/). Omit to keep placeholders. */
+  imagen?: string;
+  imagenAntes?: string;
+  imagenDespues?: string;
 }
 
 export const proyectos: Proyecto[] = [
@@ -52,7 +56,31 @@ export const proyectos: Proyecto[] = [
     resultados: "Entrega del local dentro del cronograma comercial establecido.",
     estado: "referencia_contractual",
     destacado: true,
-    antesDespues: false,
+    antesDespues: true,
+    imagen: "/images/portafolio/d1-despues.jpg",
+    imagenAntes: "/images/portafolio/d1-antes.jpg",
+    imagenDespues: "/images/portafolio/d1-despues.jpg",
+  },
+  {
+    slug: "renovacion-fachada-exito-valledupar",
+    titulo: "Renovación de fachada — Éxito Vecino",
+    servicioSlug: "obras-civiles",
+    segmento: "b2b",
+    clienteNombre: "Grupo Éxito",
+    clienteAutorizado: true,
+    ubicacion: "Valledupar, Cesar",
+    anio: 2026,
+    duracion: "Aprox. 6 semanas",
+    descripcion:
+      "Renovación integral de fachada de tienda Éxito Vecino, incluyendo estructura, paneles y señalización corporativa.",
+    alcance: "Montaje de andamios, instalación de paneles de fachada y señalización.",
+    resultados: "Fachada renovada y tienda entregada operativa.",
+    estado: "ejecutado",
+    destacado: true,
+    antesDespues: true,
+    imagen: "/images/portafolio/exito-valledupar-despues.jpg",
+    imagenAntes: "/images/portafolio/exito-valledupar-antes.jpg",
+    imagenDespues: "/images/portafolio/exito-valledupar-despues.jpg",
   },
   {
     slug: "remodelacion-cocina-apartamento-norte",

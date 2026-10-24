@@ -83,10 +83,15 @@ export default async function ProyectoPage({
       ) : null}
 
       {proyecto.antesDespues ? (
-        <BeforeAfter label={proyecto.titulo} className="mt-8 aspect-video w-full" />
+        <BeforeAfter
+          label={proyecto.titulo}
+          srcAntes={proyecto.imagenAntes}
+          srcDespues={proyecto.imagenDespues}
+          className="mt-8 aspect-video w-full"
+        />
       ) : (
         <CinematicReveal className="mt-8 aspect-video w-full rounded-2xl">
-          <PlaceholderImage label={proyecto.titulo} className="size-full" />
+          <PlaceholderImage label={proyecto.titulo} src={proyecto.imagen} className="size-full" />
         </CinematicReveal>
       )}
 
