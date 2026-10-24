@@ -54,11 +54,6 @@ export function SiteFooter() {
                   Certificaciones
                 </Link>
               </li>
-              <li>
-                <Link href="/blog" className="text-sm text-primary-foreground/70 hover:text-primary-foreground">
-                  Blog
-                </Link>
-              </li>
             </ul>
           </div>
 
