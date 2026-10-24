@@ -93,14 +93,20 @@ export default async function ServicioPage({
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionLabel>Cómo trabajamos</SectionLabel>
           <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">Nuestro proceso</h2>
-          <ol className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <RevealGroup className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" itemClassName="flex h-full">
             {servicio.proceso.map((paso, i) => (
-              <li key={paso} className="flex flex-col gap-3">
-                <span className="font-data text-sm text-primary">{String(i + 1).padStart(2, "0")}</span>
+              <div
+                key={paso}
+                className="card-interactive flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-6"
+              >
+                <span className="inline-flex w-fit items-center rounded-full bg-primary/10 px-3 py-1 font-data text-xs font-medium tracking-wide text-primary">
+                  Paso {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="h-px w-full bg-border" />
                 <p className="text-sm leading-relaxed text-foreground/85">{paso}</p>
-              </li>
+              </div>
             ))}
-          </ol>
+          </RevealGroup>
         </div>
       </section>
 
