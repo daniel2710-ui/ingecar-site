@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionLabel } from "@/components/site/section-label";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { siteConfig, whatsappLink } from "@/lib/site-config";
 import { TextReveal } from "@/components/site/text-reveal";
 
@@ -121,49 +122,51 @@ export default function ContactoPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4" noValidate>
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="nombre">Nombre</Label>
-                <Input
-                  id="nombre"
-                  {...register("nombre")}
-                  aria-invalid={!!errors.nombre}
-                  aria-describedby={errors.nombre ? "nombre-error" : undefined}
-                />
-                <FieldError id="nombre-error" message={errors.nombre?.message} />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="email">Correo electrónico</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  {...register("email")}
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                />
-                <FieldError id="email-error" message={errors.email?.message} />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="asunto">Asunto</Label>
-                <Input
-                  id="asunto"
-                  placeholder="Alianza comercial, proveedor, consulta..."
-                  {...register("asunto")}
-                  aria-invalid={!!errors.asunto}
-                  aria-describedby={errors.asunto ? "asunto-error" : undefined}
-                />
-                <FieldError id="asunto-error" message={errors.asunto?.message} />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="mensaje">Mensaje</Label>
-                <Textarea
-                  id="mensaje"
-                  rows={4}
-                  {...register("mensaje")}
-                  aria-invalid={!!errors.mensaje}
-                  aria-describedby={errors.mensaje ? "mensaje-error" : undefined}
-                />
-                <FieldError id="mensaje-error" message={errors.mensaje?.message} />
-              </div>
+              <RevealGroup className="flex flex-col gap-4" stagger={60}>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="nombre">Nombre</Label>
+                  <Input
+                    id="nombre"
+                    {...register("nombre")}
+                    aria-invalid={!!errors.nombre}
+                    aria-describedby={errors.nombre ? "nombre-error" : undefined}
+                  />
+                  <FieldError id="nombre-error" message={errors.nombre?.message} />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="email">Correo electrónico</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    {...register("email")}
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                  />
+                  <FieldError id="email-error" message={errors.email?.message} />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="asunto">Asunto</Label>
+                  <Input
+                    id="asunto"
+                    placeholder="Alianza comercial, proveedor, consulta..."
+                    {...register("asunto")}
+                    aria-invalid={!!errors.asunto}
+                    aria-describedby={errors.asunto ? "asunto-error" : undefined}
+                  />
+                  <FieldError id="asunto-error" message={errors.asunto?.message} />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="mensaje">Mensaje</Label>
+                  <Textarea
+                    id="mensaje"
+                    rows={4}
+                    {...register("mensaje")}
+                    aria-invalid={!!errors.mensaje}
+                    aria-describedby={errors.mensaje ? "mensaje-error" : undefined}
+                  />
+                  <FieldError id="mensaje-error" message={errors.mensaje?.message} />
+                </div>
+              </RevealGroup>
 
               <label className="flex items-start gap-2.5 rounded-lg bg-muted p-4 text-sm">
                 <input

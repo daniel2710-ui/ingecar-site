@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
 
 const schema = z.object({
@@ -86,117 +87,119 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <RevealGroup className="flex flex-col gap-5" stagger={60}>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="nombre">Nombre completo</Label>
+            <Input
+              id="nombre"
+              {...register("nombre")}
+              placeholder="Tu nombre"
+              aria-invalid={!!errors.nombre}
+              aria-describedby={errors.nombre ? "nombre-error" : undefined}
+            />
+            <FieldError id="nombre-error" message={errors.nombre?.message} />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="telefono">Teléfono</Label>
+            <Input
+              id="telefono"
+              {...register("telefono")}
+              placeholder="300 000 0000"
+              aria-invalid={!!errors.telefono}
+              aria-describedby={errors.telefono ? "telefono-error" : undefined}
+            />
+            <FieldError id="telefono-error" message={errors.telefono?.message} />
+          </div>
+        </div>
+
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="nombre">Nombre completo</Label>
+          <Label htmlFor="email">Correo electrónico</Label>
           <Input
-            id="nombre"
-            {...register("nombre")}
-            placeholder="Tu nombre"
-            aria-invalid={!!errors.nombre}
-            aria-describedby={errors.nombre ? "nombre-error" : undefined}
+            id="email"
+            type="email"
+            {...register("email")}
+            placeholder="nombre@correo.com"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
           />
-          <FieldError id="nombre-error" message={errors.nombre?.message} />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="telefono">Teléfono</Label>
-          <Input
-            id="telefono"
-            {...register("telefono")}
-            placeholder="300 000 0000"
-            aria-invalid={!!errors.telefono}
-            aria-describedby={errors.telefono ? "telefono-error" : undefined}
-          />
-          <FieldError id="telefono-error" message={errors.telefono?.message} />
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="email">Correo electrónico</Label>
-        <Input
-          id="email"
-          type="email"
-          {...register("email")}
-          placeholder="nombre@correo.com"
-          aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? "email-error" : undefined}
-        />
-        <FieldError id="email-error" message={errors.email?.message} />
-      </div>
-
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="segmento">Tipo de cliente</Label>
-          <Select
-            defaultValue={watch("segmento")}
-            onValueChange={(v) => setValue("segmento", v as FormValues["segmento"])}
-          >
-            <SelectTrigger id="segmento" className="w-full">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="particular">Persona natural</SelectItem>
-              <SelectItem value="empresa">Empresa</SelectItem>
-            </SelectContent>
-          </Select>
+          <FieldError id="email-error" message={errors.email?.message} />
         </div>
 
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="servicioSlug">Servicio de interés</Label>
-          <Select
-            defaultValue={watch("servicioSlug")}
-            onValueChange={(v) => setValue("servicioSlug", v)}
-          >
-            <SelectTrigger
-              id="servicioSlug"
-              className="w-full"
-              aria-invalid={!!errors.servicioSlug}
-              aria-describedby={errors.servicioSlug ? "servicioSlug-error" : undefined}
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="segmento">Tipo de cliente</Label>
+            <Select
+              defaultValue={watch("segmento")}
+              onValueChange={(v) => setValue("segmento", v as FormValues["segmento"])}
             >
-              <SelectValue placeholder="Selecciona un servicio" />
-            </SelectTrigger>
-            <SelectContent>
-              {servicios.map((s) => (
-                <SelectItem key={s.slug} value={s.slug}>
-                  {s.nombre}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <FieldError id="servicioSlug-error" message={errors.servicioSlug?.message} />
-        </div>
-      </div>
+              <SelectTrigger id="segmento" className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="particular">Persona natural</SelectItem>
+                <SelectItem value="empresa">Empresa</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="servicioSlug">Servicio de interés</Label>
+            <Select
+              defaultValue={watch("servicioSlug")}
+              onValueChange={(v) => setValue("servicioSlug", v)}
+            >
+              <SelectTrigger
+                id="servicioSlug"
+                className="w-full"
+                aria-invalid={!!errors.servicioSlug}
+                aria-describedby={errors.servicioSlug ? "servicioSlug-error" : undefined}
+              >
+                <SelectValue placeholder="Selecciona un servicio" />
+              </SelectTrigger>
+              <SelectContent>
+                {servicios.map((s) => (
+                  <SelectItem key={s.slug} value={s.slug}>
+                    {s.nombre}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FieldError id="servicioSlug-error" message={errors.servicioSlug?.message} />
+          </div>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="ubicacion">Ciudad / ubicación del proyecto</Label>
+            <Input
+              id="ubicacion"
+              {...register("ubicacion")}
+              placeholder="Barranquilla, Atlántico"
+              aria-invalid={!!errors.ubicacion}
+              aria-describedby={errors.ubicacion ? "ubicacion-error" : undefined}
+            />
+            <FieldError id="ubicacion-error" message={errors.ubicacion?.message} />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="presupuesto">Presupuesto aproximado (opcional)</Label>
+            <Input id="presupuesto" {...register("presupuesto")} placeholder="$ COP" />
+          </div>
+        </div>
+
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="ubicacion">Ciudad / ubicación del proyecto</Label>
-          <Input
-            id="ubicacion"
-            {...register("ubicacion")}
-            placeholder="Barranquilla, Atlántico"
-            aria-invalid={!!errors.ubicacion}
-            aria-describedby={errors.ubicacion ? "ubicacion-error" : undefined}
+          <Label htmlFor="mensaje">Cuéntanos sobre tu proyecto</Label>
+          <Textarea
+            id="mensaje"
+            rows={4}
+            {...register("mensaje")}
+            placeholder="Describe el alcance, el espacio o el tipo de obra que necesitas"
+            aria-invalid={!!errors.mensaje}
+            aria-describedby={errors.mensaje ? "mensaje-error" : undefined}
           />
-          <FieldError id="ubicacion-error" message={errors.ubicacion?.message} />
+          <FieldError id="mensaje-error" message={errors.mensaje?.message} />
         </div>
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="presupuesto">Presupuesto aproximado (opcional)</Label>
-          <Input id="presupuesto" {...register("presupuesto")} placeholder="$ COP" />
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="mensaje">Cuéntanos sobre tu proyecto</Label>
-        <Textarea
-          id="mensaje"
-          rows={4}
-          {...register("mensaje")}
-          placeholder="Describe el alcance, el espacio o el tipo de obra que necesitas"
-          aria-invalid={!!errors.mensaje}
-          aria-describedby={errors.mensaje ? "mensaje-error" : undefined}
-        />
-        <FieldError id="mensaje-error" message={errors.mensaje?.message} />
-      </div>
+      </RevealGroup>
 
       <div className="flex flex-col gap-3 rounded-lg bg-muted p-4">
         <label className="flex items-start gap-2.5 text-sm">
