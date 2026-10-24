@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
 import { BeforeAfter } from "@/components/site/before-after";
@@ -11,6 +17,7 @@ import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
 import { proyectos } from "@/lib/data/proyectos";
 import { testimonios } from "@/lib/data/testimonios";
+import { faqsHogares } from "@/lib/data/faqs-segmento";
 import { whatsappLink } from "@/lib/site-config";
 import { TextReveal } from "@/components/site/text-reveal";
 
@@ -126,6 +133,25 @@ export default function HogaresPage() {
           </div>
         </section>
       ) : null}
+
+      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <SectionLabel>Preguntas frecuentes</SectionLabel>
+        <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
+          Resolvemos tus dudas
+        </h2>
+        <Accordion type="single" collapsible className="mt-6">
+          {faqsHogares.map((faq, i) => (
+            <AccordionItem key={i} value={`faq-${i}`}>
+              <AccordionTrigger className="text-left text-[15px] font-medium">
+                {faq.pregunta}
+              </AccordionTrigger>
+              <AccordionContent className="text-sm text-muted-foreground">
+                {faq.respuesta}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="flex flex-col items-center gap-5 rounded-2xl bg-surface-dark px-6 py-14 text-center">

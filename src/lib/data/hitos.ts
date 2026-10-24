@@ -36,11 +36,6 @@ export const hitos: Hito[] = [
     descripcion: "Implementación de Seguridad Industrial y Salud Ocupacional para contratistas RUC.",
   },
   {
-    anio: "2011",
-    titulo: "Certificación OHSAS 18001:2007",
-    descripcion: "Obtenida a través del Consejo Colombiano de Seguridad.",
-  },
-  {
     anio: "2024–2026",
     titulo: "Soluciones integrales",
     descripcion: "Evolución hacia mantenimiento, telecomunicaciones, ingeniería y remodelaciones.",

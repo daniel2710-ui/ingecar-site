@@ -10,7 +10,7 @@ import { TextReveal } from "@/components/site/text-reveal";
 export const metadata: Metadata = {
   title: "Certificaciones",
   description:
-    "Certificaciones vigentes de INGECAR LTDA.: OHSAS 18001:2007, RUC y RUP, disponibles para procesos de contratación pública y privada.",
+    "Certificaciones vigentes de INGECAR LTDA.: RUC y RUP, disponibles para procesos de contratación pública y privada.",
 };
 
 export default function CertificacionesPage() {

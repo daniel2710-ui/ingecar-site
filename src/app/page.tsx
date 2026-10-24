@@ -191,7 +191,7 @@ export default function HomePage() {
                 Respaldados por certificaciones vigentes
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                OHSAS 18001:2007, RUC y RUP — listos para procesos de contratación pública y privada.
+                RUC y RUP — listos para procesos de contratación pública y privada.
               </p>
             </div>
           </div>

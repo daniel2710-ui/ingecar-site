@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ShieldCheck, FileCheck2 } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
 import { ServiceCard } from "@/components/site/service-card";
@@ -13,6 +19,7 @@ import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
 import { proyectos } from "@/lib/data/proyectos";
 import { testimonios } from "@/lib/data/testimonios";
+import { faqsEmpresas } from "@/lib/data/faqs-segmento";
 import { whatsappLink } from "@/lib/site-config";
 import { TextReveal } from "@/components/site/text-reveal";
 
@@ -65,8 +72,8 @@ export default function EmpresasPage() {
         <div className="mt-6 flex items-center gap-3 rounded-xl border border-border bg-card p-5">
           <ShieldCheck className="size-6 shrink-0 text-primary" />
           <p className="text-sm text-muted-foreground">
-            Certificados en OHSAS 18001:2007, RUC y RUP — listos para procesos de contratación
-            pública y privada.{" "}
+            Certificados en RUC y RUP — listos para procesos de contratación pública y
+            privada.{" "}
             <Link href="/certificaciones" className="font-medium text-primary underline underline-offset-2">
               Ver certificaciones
             </Link>
@@ -79,27 +86,19 @@ export default function EmpresasPage() {
 
       <section className="bg-secondary/40 py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-            <div>
-              <SectionLabel>Servicios para empresas</SectionLabel>
-              <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
-                Soluciones técnicas para tu operación
-              </h2>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                Contratos de mantenimiento recurrente y proyectos técnicos con trazabilidad y
-                cumplimiento documentado en cada etapa.
-              </p>
-              <div className="mt-6 flex items-center gap-2 font-data text-xs text-primary/80">
-                <FileCheck2 className="size-4" />
-                {serviciosB2B.length} líneas de servicio disponibles para tu operación
-              </div>
-            </div>
-            <RevealGroup className="grid gap-5 sm:grid-cols-2" itemClassName="flex h-full">
-              {serviciosB2B.map((s) => (
-                <ServiceCard key={s.slug} servicio={s} />
-              ))}
-            </RevealGroup>
-          </div>
+          <SectionLabel>Servicios para empresas</SectionLabel>
+          <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
+            Soluciones técnicas para tu operación
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Contratos de mantenimiento recurrente y proyectos técnicos con trazabilidad y
+            cumplimiento documentado en cada etapa.
+          </p>
+          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" itemClassName="flex h-full">
+            {serviciosB2B.map((s) => (
+              <ServiceCard key={s.slug} servicio={s} />
+            ))}
+          </RevealGroup>
         </div>
       </section>
 
@@ -127,6 +126,25 @@ export default function EmpresasPage() {
           </div>
         </section>
       ) : null}
+
+      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <SectionLabel>Preguntas frecuentes</SectionLabel>
+        <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
+          Resolvemos tus dudas
+        </h2>
+        <Accordion type="single" collapsible className="mt-6">
+          {faqsEmpresas.map((faq, i) => (
+            <AccordionItem key={i} value={`faq-${i}`}>
+              <AccordionTrigger className="text-left text-[15px] font-medium">
+                {faq.pregunta}
+              </AccordionTrigger>
+              <AccordionContent className="text-sm text-muted-foreground">
+                {faq.respuesta}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </section>
 
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="flex flex-col items-center gap-5 rounded-2xl bg-surface-dark px-6 py-14 text-center">
