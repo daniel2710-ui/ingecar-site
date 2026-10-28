@@ -47,6 +47,7 @@ export default function HomePage() {
             </div>
             <PlaceholderImage
               label="Proyecto INGECAR en ejecución"
+              src="/images/home-hero-proyecto.jpg"
               tone={0}
               faceted
               className="aspect-[4/3] w-full lg:aspect-square"
@@ -64,6 +65,7 @@ export default function HomePage() {
           >
             <PlaceholderImage
               label="Equipo INGECAR en obra"
+              src="/images/home-empresas-card.jpg"
               tone={1}
               className="absolute inset-0 transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
             />
@@ -91,6 +93,7 @@ export default function HomePage() {
           >
             <PlaceholderImage
               label="Arquitectura residencial INGECAR"
+              src="/images/portafolio/demolicion-pisos.jpg"
               tone={2}
               className="absolute inset-0 transition-transform duration-500 ease-[var(--ease-out)] motion-reduce:transition-none group-hover:scale-[1.03]"
             />
