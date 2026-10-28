@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/accordion";
 import { SectionLabel } from "@/components/site/section-label";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
-import { BeforeAfter } from "@/components/site/before-after";
 import { ServiceCard } from "@/components/site/service-card";
 import { ProjectCard } from "@/components/site/project-card";
 import { TestimonialCard } from "@/components/site/testimonial-card";
@@ -30,7 +29,6 @@ export const metadata: Metadata = {
 export default function HogaresPage() {
   const serviciosB2C = servicios.filter((s) => s.segmento === "b2c" || s.segmento === "ambos");
   const proyectosB2C = proyectos.filter((p) => p.segmento === "b2c").slice(0, 3);
-  const proyectosAntesDespues = proyectos.filter((p) => p.segmento === "b2c" && p.antesDespues);
   const testimoniosB2C = testimonios.filter((t) => t.autorTipo === "particular").slice(0, 2);
 
   return (
@@ -65,34 +63,23 @@ export default function HogaresPage() {
         </div>
       </section>
 
-      {/* Antes/después — la pieza central del storytelling en remodelaciones (slider interactivo) */}
-      {proyectosAntesDespues.length > 0 ? (
+      {/* Portafolio residencial — todavía no tenemos proyectos de remodelación de
+          hogares documentados; mostramos trabajos reales (demolición, instalaciones)
+          que se aplican directamente a una remodelación, en vez de un antes/después
+          inventado. */}
+      {proyectosB2C.length > 0 ? (
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <SectionLabel>Antes y después</SectionLabel>
+          <SectionLabel>Portafolio residencial</SectionLabel>
           <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
-            Arrastra para ver la transformación
+            Trabajos que hacemos en tu hogar
           </h2>
           <p className="mt-3 max-w-xl text-sm text-muted-foreground">
-            Desliza sobre cada proyecto para comparar el espacio original con el resultado entregado.
+            Parte del trabajo real detrás de una remodelación: demolición, instalaciones y
+            acabados.
           </p>
-          <RevealGroup className="mt-8 grid gap-6 sm:grid-cols-2" itemClassName="flex h-full flex-col">
-            {proyectosAntesDespues.map((p) => (
-              <Link key={p.slug} href={`/portafolio/${p.slug}`} className="group flex flex-col gap-3">
-                <BeforeAfter
-                  label={p.titulo}
-                  srcAntes={p.imagenAntes}
-                  srcDespues={p.imagenDespues}
-                  className="aspect-[4/3] w-full"
-                />
-                <div>
-                  <p className="font-heading text-base font-bold text-foreground group-hover:text-primary">
-                    {p.titulo}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {p.ubicacion} · {p.duracion ?? `${p.anio}`}
-                  </p>
-                </div>
-              </Link>
+          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-3" itemClassName="flex h-full">
+            {proyectosB2C.map((p, i) => (
+              <ProjectCard key={p.slug} proyecto={p} tone={i} />
             ))}
           </RevealGroup>
         </section>
@@ -111,20 +98,6 @@ export default function HogaresPage() {
           </RevealGroup>
         </div>
       </section>
-
-      {proyectosB2C.length > 0 ? (
-        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <SectionLabel>Portafolio residencial</SectionLabel>
-          <h2 className="mt-2 font-heading text-2xl font-bold text-foreground">
-            Más transformaciones recientes
-          </h2>
-          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-3" itemClassName="flex h-full">
-            {proyectosB2C.map((p, i) => (
-              <ProjectCard key={p.slug} proyecto={p} tone={i} />
-            ))}
-          </RevealGroup>
-        </section>
-      ) : null}
 
       {testimoniosB2C.length > 0 ? (
         <section className="bg-secondary/40 py-16">

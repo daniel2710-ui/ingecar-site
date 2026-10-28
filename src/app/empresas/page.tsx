@@ -60,7 +60,7 @@ export default function EmpresasPage() {
           </div>
           <PlaceholderImage
             label="Mantenimiento industrial"
-            src="/images/empresas-hero.jpg"
+            src="/images/empresas-mantenimiento-industrial.jpg"
             className="aspect-[4/3] w-full rounded-2xl lg:aspect-square"
           />
         </div>
