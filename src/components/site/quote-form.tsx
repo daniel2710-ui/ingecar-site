@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { RevealGroup } from "@/components/site/reveal-group";
 import { servicios } from "@/lib/data/servicios";
+import { whatsappLink } from "@/lib/site-config";
 
 const schema = z.object({
   nombre: z.string().min(2, "Ingresa tu nombre"),
@@ -46,8 +47,26 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
+function buildWhatsappMensaje(data: FormValues) {
+  const servicio = servicios.find((s) => s.slug === data.servicioSlug);
+  const lineas = [
+    "Hola, quiero solicitar una cotización desde el sitio web de INGECAR.",
+    "",
+    `*Nombre:* ${data.nombre}`,
+    `*Teléfono:* ${data.telefono}`,
+    `*Correo:* ${data.email}`,
+    `*Tipo de cliente:* ${data.segmento === "empresa" ? "Empresa" : "Persona natural"}`,
+    `*Servicio de interés:* ${servicio?.nombre ?? data.servicioSlug}`,
+    `*Ubicación del proyecto:* ${data.ubicacion}`,
+  ];
+  if (data.presupuesto) lineas.push(`*Presupuesto aproximado:* ${data.presupuesto}`);
+  lineas.push("", "*Detalle del proyecto:*", data.mensaje);
+  return lineas.join("\n");
+}
+
 export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido?: string }) {
   const [enviado, setEnviado] = useState(false);
+  const [urlWhatsapp, setUrlWhatsapp] = useState("");
   const {
     register,
     handleSubmit,
@@ -63,11 +82,11 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
     },
   });
 
-  async function onSubmit() {
-    // Simulated submission — no backend/email integration yet (out of scope for this design phase).
-    // Wire to Resend/Supabase before launch so this success state reflects a real send.
-    await new Promise((r) => setTimeout(r, 600));
+  function onSubmit(data: FormValues) {
+    const url = whatsappLink(buildWhatsappMensaje(data));
+    setUrlWhatsapp(url);
     setEnviado(true);
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   if (enviado) {
@@ -77,10 +96,17 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
         className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-10 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out"
       >
         <CheckCircle2 className="size-10 text-accent" />
-        <p className="font-heading text-lg font-bold">Solicitud enviada</p>
+        <p className="font-heading text-lg font-bold">Te estamos llevando a WhatsApp</p>
         <p className="max-w-sm text-sm text-muted-foreground">
-          Recibimos tu información. Nuestro equipo se pondrá en contacto contigo lo antes posible.
+          Abrimos un chat de WhatsApp con el resumen de tu solicitud, listo para enviar a nuestro
+          equipo. Si no se abrió automáticamente, usa el botón.
         </p>
+        <Button asChild variant="cta" size="lg" className="mt-2 h-12 rounded-lg px-6 text-base">
+          <a href={urlWhatsapp} target="_blank" rel="noopener noreferrer">
+            <MessageCircle className="size-4" />
+            Abrir WhatsApp
+          </a>
+        </Button>
       </div>
     );
   }
@@ -229,7 +255,8 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
       </div>
 
       <Button type="submit" variant="cta" size="lg" className="h-12 rounded-lg text-base" disabled={isSubmitting}>
-        {isSubmitting ? "Enviando..." : "Enviar solicitud"}
+        <MessageCircle className="size-4" />
+        Enviar solicitud por WhatsApp
       </Button>
     </form>
   );

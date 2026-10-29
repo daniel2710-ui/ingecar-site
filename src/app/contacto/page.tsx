@@ -37,16 +37,28 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 
 export default function ContactoPage() {
   const [enviado, setEnviado] = useState(false);
+  const [urlWhatsapp, setUrlWhatsapp] = useState("");
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
-  async function onSubmit() {
-    // Simulated submission — no backend/email integration yet (out of scope for this design phase).
-    await new Promise((r) => setTimeout(r, 500));
+  function onSubmit(data: FormValues) {
+    const mensaje = [
+      "Hola, te escribo desde el formulario de contacto del sitio web de INGECAR.",
+      "",
+      `*Nombre:* ${data.nombre}`,
+      `*Correo:* ${data.email}`,
+      `*Asunto:* ${data.asunto}`,
+      "",
+      `*Mensaje:*`,
+      data.mensaje,
+    ].join("\n");
+    const url = whatsappLink(mensaje);
+    setUrlWhatsapp(url);
     setEnviado(true);
+    window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (
@@ -115,10 +127,19 @@ export default function ContactoPage() {
           </p>
 
           {enviado ? (
-            <div role="status" className="mt-6 flex flex-col items-center gap-2 rounded-xl bg-secondary/60 p-8 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out">
+            <div role="status" className="mt-6 flex flex-col items-center gap-3 rounded-xl bg-secondary/60 p-8 text-center animate-in fade-in-0 zoom-in-95 duration-300 ease-out">
               <CheckCircle2 className="size-8 text-accent" />
-              <p className="font-semibold text-foreground">Mensaje enviado</p>
-              <p className="text-sm text-muted-foreground">Te responderemos lo antes posible.</p>
+              <p className="font-semibold text-foreground">Te estamos llevando a WhatsApp</p>
+              <p className="text-sm text-muted-foreground">
+                Abrimos un chat con tu mensaje listo para enviar. Si no se abrió automáticamente,
+                usa el botón.
+              </p>
+              <Button asChild variant="cta" size="lg" className="mt-1 h-11 rounded-lg">
+                <a href={urlWhatsapp} target="_blank" rel="noopener noreferrer">
+                  <MessageCircle className="size-4" />
+                  Abrir WhatsApp
+                </a>
+              </Button>
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4" noValidate>
@@ -187,7 +208,8 @@ export default function ContactoPage() {
               <FieldError id="tratamientoDatos-error" message={errors.tratamientoDatos?.message} />
 
               <Button type="submit" variant="cta" size="lg" className="h-12 rounded-lg" disabled={isSubmitting}>
-                {isSubmitting ? "Enviando..." : "Enviar mensaje"}
+                <MessageCircle className="size-4" />
+                Enviar por WhatsApp
               </Button>
             </form>
           )}
