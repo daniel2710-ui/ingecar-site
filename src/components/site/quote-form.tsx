@@ -22,18 +22,30 @@ import { servicios } from "@/lib/data/servicios";
 import { whatsappLink } from "@/lib/site-config";
 
 const schema = z.object({
-  nombre: z.string().min(2, "Ingresa tu nombre"),
-  email: z.email("Ingresa un correo válido"),
-  telefono: z.string().min(7, "Ingresa un teléfono de contacto"),
+  nombre: z.string().min(2, "Ingresa tu nombre").max(100, "Nombre demasiado largo"),
+  email: z.email("Ingresa un correo válido").max(200, "Correo demasiado largo"),
+  telefono: z
+    .string()
+    .min(7, "Ingresa un teléfono de contacto")
+    .max(20, "Teléfono demasiado largo"),
   segmento: z.enum(["empresa", "particular"]),
   servicioSlug: z.string().min(1, "Selecciona un servicio"),
-  ubicacion: z.string().min(2, "Indica la ciudad o ubicación del proyecto"),
-  presupuesto: z.string().optional(),
-  mensaje: z.string().min(10, "Cuéntanos un poco más sobre tu proyecto"),
+  ubicacion: z
+    .string()
+    .min(2, "Indica la ciudad o ubicación del proyecto")
+    .max(150, "Ubicación demasiado larga"),
+  presupuesto: z.string().max(50, "Presupuesto demasiado largo").optional(),
+  mensaje: z
+    .string()
+    .min(10, "Cuéntanos un poco más sobre tu proyecto")
+    .max(2000, "Mensaje demasiado largo (máx. 2000 caracteres)"),
   tratamientoDatos: z.literal(true, {
     error: "Debes autorizar el tratamiento de tus datos personales",
   }),
   comunicacionesMarketing: z.boolean().optional(),
+  // Honeypot: invisible para personas; los bots de envío masivo suelen diligenciarlo.
+  // Si llega con contenido, la validación falla y el formulario no se envía.
+  sitioWeb: z.string().max(0, "").optional(),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -79,6 +91,7 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
       segmento: "particular",
       servicioSlug: servicioSlugPredefinido ?? "",
       comunicacionesMarketing: false,
+      sitioWeb: "",
     },
   });
 
@@ -113,6 +126,10 @@ export function QuoteForm({ servicioSlugPredefinido }: { servicioSlugPredefinido
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5" noValidate>
+      <div className="absolute left-[-9999px] top-0 h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="sitioWeb">Deja este campo vacío</label>
+        <input id="sitioWeb" type="text" tabIndex={-1} autoComplete="off" {...register("sitioWeb")} />
+      </div>
       <RevealGroup className="flex flex-col gap-5" stagger={60}>
         <div className="grid gap-5 sm:grid-cols-2">
           <div className="flex flex-col gap-1.5">

@@ -29,9 +29,11 @@ export default function PoliticaDatosPage() {
             1. Información que recopilamos
           </h2>
           <p className="mt-2">
-            Recopilamos datos como nombre, correo electrónico, número de teléfono, ubicación del
-            proyecto, presupuesto estimado y, cuando el usuario los adjunta voluntariamente,
-            fotografías o documentos relacionados con la solicitud de cotización.
+            Recopilamos los datos que proporcionas voluntariamente a través de nuestros
+            formularios: nombre, correo electrónico, número de teléfono, ubicación del proyecto,
+            presupuesto estimado y el detalle de tu solicitud. Nuestros formularios no incluyen
+            adjuntar archivos; si compartes fotografías o documentos por otros canales (como
+            WhatsApp o correo), su tratamiento se rige igualmente por esta política.
           </p>
         </div>
 

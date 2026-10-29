@@ -16,13 +16,18 @@ import { siteConfig, whatsappLink } from "@/lib/site-config";
 import { TextReveal } from "@/components/site/text-reveal";
 
 const schema = z.object({
-  nombre: z.string().min(2, "Ingresa tu nombre"),
-  email: z.email("Ingresa un correo válido"),
-  asunto: z.string().min(2, "Indica el motivo de tu mensaje"),
-  mensaje: z.string().min(10, "Escribe tu mensaje"),
+  nombre: z.string().min(2, "Ingresa tu nombre").max(100, "Nombre demasiado largo"),
+  email: z.email("Ingresa un correo válido").max(200, "Correo demasiado largo"),
+  asunto: z
+    .string()
+    .min(2, "Indica el motivo de tu mensaje")
+    .max(150, "Asunto demasiado largo"),
+  mensaje: z.string().min(10, "Escribe tu mensaje").max(2000, "Mensaje demasiado largo (máx. 2000 caracteres)"),
   tratamientoDatos: z.literal(true, {
     error: "Debes autorizar el tratamiento de tus datos personales",
   }),
+  // Honeypot: invisible para personas; los bots de envío masivo suelen diligenciarlo.
+  sitioWeb: z.string().max(0, "").optional(),
 });
 type FormValues = z.infer<typeof schema>;
 
@@ -143,6 +148,10 @@ export default function ContactoPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit(onSubmit)} className="mt-6 flex flex-col gap-4" noValidate>
+              <div className="absolute left-[-9999px] top-0 h-px w-px overflow-hidden" aria-hidden="true">
+                <label htmlFor="sitioWeb">Deja este campo vacío</label>
+                <input id="sitioWeb" type="text" tabIndex={-1} autoComplete="off" {...register("sitioWeb")} />
+              </div>
               <RevealGroup className="flex flex-col gap-4" stagger={60}>
                 <div className="flex flex-col gap-1.5">
                   <Label htmlFor="nombre">Nombre</Label>
