@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ShieldCheck, MessageCircle } from "lucide-react";
+import { ShieldCheck, MessageCircle, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/site/section-label";
 import { RevealGroup } from "@/components/site/reveal-group";
@@ -24,6 +24,13 @@ export default function CertificacionesPage() {
         Nuestras certificaciones están disponibles para revisión en procesos de contratación
         pública y privada, incluyendo licitaciones.
       </p>
+
+      <Button asChild variant="cta" size="lg" className="mt-6 h-12 gap-2 rounded-lg px-6 text-base">
+        <a href="/docs/certificaciones-ingecar.pdf" download="Certificaciones-INGECAR.pdf">
+          <Download className="size-4" />
+          Ver certificaciones
+        </a>
+      </Button>
 
       <RevealGroup className="mt-10 flex flex-col gap-4">
         {certificaciones.map((c) => (
