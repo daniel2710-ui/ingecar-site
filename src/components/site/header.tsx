@@ -34,13 +34,14 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <Image
-            src="/images/logo.jpg"
+            src="/images/logo-icon.png"
             alt="INGECAR LTDA. — Ingeniería del Caribe"
-            width={140}
+            width={40}
             height={40}
-            className="h-9 w-auto"
+            className="size-9"
             priority
           />
+          <span className="font-heading text-lg font-bold text-foreground">INGECAR</span>
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex">
@@ -89,13 +90,16 @@ export function SiteHeader() {
           <SheetContent side="right" className="flex w-4/5 flex-col gap-0 p-0">
             <SheetHeader className="border-b border-border p-4">
               <SheetTitle className="sr-only">Menú de navegación</SheetTitle>
-              <Image
-                src="/images/logo.jpg"
-                alt="INGECAR LTDA. — Ingeniería del Caribe"
-                width={120}
-                height={34}
-                className="h-8 w-auto"
-              />
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/images/logo-icon.png"
+                  alt="INGECAR LTDA. — Ingeniería del Caribe"
+                  width={36}
+                  height={36}
+                  className="size-8"
+                />
+                <span className="font-heading text-base font-bold text-foreground">INGECAR</span>
+              </div>
             </SheetHeader>
             <nav className="flex flex-col gap-1 p-4">
               {navLinks.map((link, i) => {
