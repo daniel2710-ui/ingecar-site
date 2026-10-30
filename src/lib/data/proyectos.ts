@@ -176,13 +176,13 @@ export const proyectos: Proyecto[] = [
     anio: 2025,
     descripcion: "Renovación de fachada en punto de venta de la cadena.",
     alcance: "Montaje de andamios, pintura e intervención de fachada para la adecuación del local.",
-    resultados: "Fachada renovada y tienda entregada operativa.",
+    resultados: "Avance de obra conforme al cronograma acordado con el cliente.",
     estado: "ejecutado",
     destacado: false,
     antesDespues: true,
-    imagen: "/images/portafolio/carulla.jpg",
-    imagenAntes: "/images/portafolio/carulla-antes.jpg",
-    imagenDespues: "/images/portafolio/carulla.jpg",
+    imagen: "/images/portafolio/carulla-despues.jpg",
+    imagenAntes: "/images/portafolio/carulla.jpg",
+    imagenDespues: "/images/portafolio/carulla-despues.jpg",
   },
 ];
 
