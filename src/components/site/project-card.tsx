@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { PlaceholderImage } from "@/components/site/placeholder-image";
 import { CinematicReveal } from "@/components/site/cinematic-reveal";
@@ -59,9 +60,15 @@ export function ProjectCard({
             <p className="mt-0.5 font-data text-xs font-medium text-foreground">{proyecto.anio}</p>
           </div>
         </div>
-        <span className="mt-3 text-[11px] font-medium uppercase tracking-wide text-primary/70">
-          {estadoLabel[proyecto.estado]}
-        </span>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <span className="text-[11px] font-medium uppercase tracking-wide text-primary/70">
+            {estadoLabel[proyecto.estado]}
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-primary">
+            Ver proyecto
+            <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </div>
       </div>
     </Link>
   );

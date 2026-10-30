@@ -7,16 +7,23 @@ import { StatStrip } from "@/components/site/stat-strip";
 import { TrustLogos } from "@/components/site/trust-logos";
 import { ServiceCard } from "@/components/site/service-card";
 import { ProjectCard } from "@/components/site/project-card";
-import { TestimonialCard } from "@/components/site/testimonial-card";
+import { TestimonialsCarousel } from "@/components/site/testimonials-carousel";
 import { RevealGroup } from "@/components/site/reveal-group";
 import { TextReveal } from "@/components/site/text-reveal";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { servicios } from "@/lib/data/servicios";
 import { getProyectosDestacados } from "@/lib/data/proyectos";
 import { getTestimoniosDestacados } from "@/lib/data/testimonios";
 import { whatsappLink } from "@/lib/site-config";
 
 export default function HomePage() {
-  const destacados = getProyectosDestacados().slice(0, 4);
+  const destacados = getProyectosDestacados();
   const testimonios = getTestimoniosDestacados().slice(0, 3);
 
   return (
@@ -146,7 +153,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Portafolio destacado */}
+      {/* Portafolio destacado — carrusel: en cada viewport se alcanza a ver el
+          borde de la siguiente tarjeta, invitando a deslizar. */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="flex items-end justify-between gap-4">
           <div>
@@ -159,12 +167,20 @@ export default function HomePage() {
             Ver todo el portafolio <ArrowRight className="size-3.5" />
           </Link>
         </div>
-        <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" itemClassName="flex h-full">
-          {destacados.map((p, i) => (
-            <ProjectCard key={p.slug} proyecto={p} tone={i} cinematic />
-          ))}
-        </RevealGroup>
-        <Link href="/portafolio" className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-primary sm:hidden">
+        <Carousel opts={{ align: "start", loop: false }} className="mt-8">
+          <CarouselContent>
+            {destacados.map((p, i) => (
+              <CarouselItem key={p.slug} className="basis-[82%] sm:basis-1/2 lg:basis-1/3">
+                <ProjectCard proyecto={p} tone={i} cinematic />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="mt-6 flex items-center justify-end gap-2">
+            <CarouselPrevious className="static translate-x-0 translate-y-0" />
+            <CarouselNext className="static translate-x-0 translate-y-0" />
+          </div>
+        </Carousel>
+        <Link href="/portafolio" className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary sm:hidden">
           Ver todo el portafolio <ArrowRight className="size-3.5" />
         </Link>
       </section>
@@ -176,11 +192,9 @@ export default function HomePage() {
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
             Lo que dicen nuestros clientes
           </h2>
-          <RevealGroup className="mt-8 grid gap-5 sm:grid-cols-3" itemClassName="flex h-full">
-            {testimonios.map((t, i) => (
-              <TestimonialCard key={i} testimonio={t} />
-            ))}
-          </RevealGroup>
+          <div className="mt-8">
+            <TestimonialsCarousel testimonios={testimonios} />
+          </div>
         </div>
       </section>
 
