@@ -51,7 +51,23 @@ export default function PoliticaDatosPage() {
 
         <div>
           <h2 className="font-heading text-lg font-bold text-foreground">
-            3. Derechos del titular
+            3. Transmisión a terceros
+          </h2>
+          <p className="mt-2">
+            {siteConfig.nombre} no cuenta con un servidor o base de datos propia para almacenar
+            las solicitudes enviadas por estos formularios. Al hacer clic en &quot;Enviar&quot;,
+            tu navegador arma un enlace de WhatsApp con los datos que diligenciaste y los
+            transmite directamente a WhatsApp (servicio operado por WhatsApp LLC / Meta
+            Platforms, Inc.), que los entrega a la cuenta de WhatsApp Business de nuestro equipo.
+            Esta transmisión puede implicar una transferencia internacional de datos, y el
+            tratamiento posterior de tu información dentro de WhatsApp se rige por la política de
+            privacidad de ese servicio, no por esta.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="font-heading text-lg font-bold text-foreground">
+            4. Derechos del titular
           </h2>
           <p className="mt-2">
             Como titular de los datos, tienes derecho a conocer, actualizar, rectificar y
@@ -62,18 +78,21 @@ export default function PoliticaDatosPage() {
 
         <div>
           <h2 className="font-heading text-lg font-bold text-foreground">
-            4. Conservación y seguridad
+            5. Conservación y seguridad
           </h2>
           <p className="mt-2">
-            Los datos se conservan durante el tiempo necesario para cumplir con la finalidad para
-            la que fueron recolectados y las obligaciones legales aplicables, con medidas técnicas
-            y organizativas razonables para proteger su confidencialidad.
+            Una vez recibida en nuestra cuenta de WhatsApp, conservamos tu información durante el
+            tiempo necesario para cumplir con la finalidad para la que fue recolectada y las
+            obligaciones legales aplicables. Como no operamos un sistema propio de almacenamiento
+            para estas solicitudes, el ejercicio de tus derechos de supresión sobre esa copia
+            depende también de las herramientas que WhatsApp pone a disposición de nuestra
+            cuenta.
           </p>
         </div>
 
         <div>
           <h2 className="font-heading text-lg font-bold text-foreground">
-            5. Contacto
+            6. Contacto
           </h2>
           <p className="mt-2">
             Para ejercer tus derechos o resolver inquietudes sobre el tratamiento de tus datos,
