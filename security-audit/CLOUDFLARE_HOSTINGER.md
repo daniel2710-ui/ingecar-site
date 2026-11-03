@@ -15,6 +15,82 @@ Se encontró un documento de planeación temprana (`/Users/mymac/INGECAR/BLUEPRI
 
 **Recomendación**: confirmar con Hostinger qué plan específico se contrató antes de continuar con el resto de este checklist, ya que cambia varias respuestas abajo.
 
+> ✅ **Actualización**: confirmaste que el plan de Hostinger sí soporta Node.js — el bloqueante de arriba queda resuelto. La guía paso a paso de abajo asume eso.
+
+## Guía paso a paso (orden exacto)
+
+Sigue estos pasos en este orden. Cada uno dice exactamente dónde hacer clic (los nombres de menú pueden variar ligeramente si Cloudflare/Hostinger rediseñan su panel, pero la estructura general se mantiene). Ninguno de estos pasos lo puedo ejecutar yo — necesitas acceso a las cuentas reales.
+
+### Paso 0 — Antes de tocar nada: respalda el correo
+
+1. Entra al panel de DNS actual del dominio (donde esté hoy `ingecarltda.com`, probablemente el cPanel del hosting viejo o el panel del registrador).
+2. Busca la sección **"Zone Editor" / "DNS Zone" / "Registros DNS"** y anota (captura de pantalla o copia en un documento) **todos los registros MX** y cualquier registro `TXT` relacionado con correo (SPF, DKIM, DMARC — suelen verse como `v=spf1...`, `v=DKIM1...`, `v=DMARC1...`). Esto es lo que protege que el correo de INGECAR no se caiga al migrar.
+3. Guarda también los registros `A`/`CNAME` actuales por si necesitas comparar después.
+
+**No continúes al paso 1 sin tener esto guardado.**
+
+### Paso 1 — Sube el sitio a Hostinger primero, sin tocar DNS todavía
+
+1. En el panel de Hostinger, crea/confirma el entorno Node.js (hPanel → **Sitios web** → tu sitio → **Avanzado** → **Node.js**, o el VPS si es ese el plan).
+2. Configura el comando de arranque como `npm run build` seguido de `npm run start` (o `next start` directamente), con la carpeta del repo subida vía git o SFTP.
+3. Verifica que el sitio responde correctamente usando la URL/IP temporal que Hostinger te da (algo como `tudominio.hostinger.com` o la IP directa) — **antes de apuntar el dominio real ahí**. Esto evita que `ingecarltda.com` quede caído mientras depuras el despliegue.
+4. Con esa URL temporal, corre: `curl -I https://<url-temporal>/` y `curl -I https://<url-temporal>/portafolio/<un-slug-real>` y confirma que ves `Content-Security-Policy`, `Strict-Transport-Security`, etc. en la respuesta (la lista completa está en `PRODUCTION_READINESS.md`). Si no aparecen, el proceso no está corriendo como `next start` — revisa el paso 1.1 antes de seguir.
+
+### Paso 2 — Agrega el dominio a Cloudflare (sin activar el proxy todavía)
+
+1. En el dashboard de Cloudflare, **Agregar un sitio** → escribe `ingecarltda.com`.
+2. Cloudflare va a **escanear automáticamente** los registros DNS existentes e importarlos. Compara esa lista contra lo que guardaste en el Paso 0 — si falta algo (sobre todo MX/TXT de correo), agrégalo manualmente ahora, antes de seguir.
+3. Para el registro que apunta el dominio al sitio (normalmente un `A` o `CNAME` hacia la IP/host de Hostinger): créalo o edítalo para que apunte al **nuevo** sitio en Hostinger (del Paso 1), pero **todavía sin cambiar los nameservers** — así no afecta nada en vivo mientras terminas de configurar.
+4. **Los registros MX y los TXT de correo (SPF/DKIM/DMARC) deben quedar en modo "Solo DNS" (ícono de nube gris, no naranja)** — nunca proxificados. Proxificar un MX rompe el correo.
+5. El registro que apunta al sitio web (`A`/`CNAME`) sí puede quedar proxificado (nube naranja) una vez confirmes que todo funciona.
+
+### Paso 3 — Cambia los nameservers (el corte real)
+
+1. Cloudflare te da dos nameservers propios (algo como `xxx.ns.cloudflare.com`).
+2. En el panel del **registrador** del dominio (donde se compró `ingecarltda.com` — puede o no ser el mismo Hostinger), reemplaza los nameservers actuales por los de Cloudflare.
+3. El cambio puede tardar entre unos minutos y 24-48 horas en propagarse globalmente. Durante ese lapso, verifica con `curl -I https://ingecarltda.com/` cada cierto tiempo hasta ver que responde desde el nuevo sitio.
+4. **Verifica el correo inmediatamente después de que propague**: manda y recibe un correo de prueba a una cuenta de `@ingecarltda.com`. Si falla, revisa que los MX/TXT del Paso 2 quedaron exactamente iguales a los del Paso 0 y en modo "Solo DNS".
+
+### Paso 4 — SSL/TLS en Cloudflare
+
+1. Dashboard de Cloudflare → tu dominio → **SSL/TLS** → **Overview**.
+2. **No pongas "Full (strict)" todavía si Hostinger no tiene un certificado TLS válido propio** — primero confirma en el panel de Hostinger que el sitio tiene un certificado activo (Hostinger normalmente emite uno automático vía Let's Encrypt una vez el dominio apunta ahí). Mientras tanto, usa modo **"Full"** (sin "strict").
+3. Una vez confirmes el certificado de origen válido (puedes verificarlo con `curl -I https://<ip-o-host-de-hostinger>/` localmente, buscando que no dé error de certificado), cambia a **"Full (strict)"**.
+4. En la misma sección **SSL/TLS** → **Edge Certificates**: activa **"Always Use HTTPS"**.
+
+### Paso 5 — WAF y protección de bots
+
+1. Dashboard → tu dominio → **Security** → **WAF**.
+2. Activa el **"Cloudflare Managed Ruleset"** (disponible en el plan Free) — déjalo en modo por defecto, no necesitas reglas personalizadas para este sitio (no hay backend/API que proteger con reglas específicas).
+3. **Security** → **Bots**: si estás en plan Free, actívalo "Bot Fight Mode"; si tienes un plan pagado, "Super Bot Fight Mode". Esto frena scraping agresivo del sitio y del PDF de certificaciones.
+4. **Importante**: después de activar esto, visita el sitio tú mismo desde un navegador normal (no solo `curl`) para confirmar que no te bloquea a ti ni rompe nada visualmente.
+
+### Paso 6 — Asegura el origen (opcional pero recomendado)
+
+1. Si el plan de Hostinger lo permite, restringe el firewall del servidor para aceptar tráfico solo desde los [rangos de IP de Cloudflare](https://www.cloudflare.com/ips/) — así nadie puede saltarse Cloudflare y golpear Hostinger directamente. Esto depende de qué controles de firewall expone tu plan específico de Hostinger; si no tienes esa opción, no es bloqueante, solo una capa extra.
+
+### Paso 7 — MFA en las cuentas
+
+1. Activa verificación en dos pasos en tu cuenta de **Cloudflare** (**My Profile** → **Authentication**).
+2. Activa verificación en dos pasos en tu cuenta de **Hostinger** (hPanel → configuración de cuenta → Seguridad).
+
+### Paso 8 — Verificación final
+
+Corre exactamente esto y confirma que todo sale bien, antes de dar el sitio por "publicado de verdad":
+
+```bash
+curl -I https://ingecarltda.com/
+curl -I https://ingecarltda.com/portafolio/<un-slug-real>
+```
+
+Busca en la respuesta: `Content-Security-Policy`, `Strict-Transport-Security`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Content-Type-Options`. Si todos aparecen en ambas rutas, el despliegue quedó exactamente como lo verificó la auditoría. Si falta alguno, revisa el Paso 1 (puede que no esté corriendo como `next start`) antes de nada más.
+
+Avísame cuando tengas el dominio respondiendo (en la URL temporal de Hostinger o ya en el dominio real) y te ayudo a correr esta verificación.
+
+---
+
+## Checklist de referencia (detalle por ítem)
+
 ## Cloudflare
 
 | Ítem | Estado | Notas |
