@@ -70,7 +70,7 @@ export const proyectos: Proyecto[] = [
     clienteNombre: "Grupo Éxito",
     clienteAutorizado: true,
     ubicacion: "Valledupar, Cesar",
-    anio: 2026,
+    anio: 2025,
     duracion: "Aprox. 6 semanas",
     descripcion:
       "Renovación integral de fachada de tienda Éxito Vecino, incluyendo estructura, paneles y señalización corporativa.",

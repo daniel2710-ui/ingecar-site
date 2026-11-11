@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import { ShieldCheck, MessageCircle, Download } from "lucide-react";
+import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionLabel } from "@/components/site/section-label";
-import { RevealGroup } from "@/components/site/reveal-group";
-import { certificaciones } from "@/lib/data/certificaciones";
-import { whatsappLink } from "@/lib/site-config";
 import { TextReveal } from "@/components/site/text-reveal";
 
 export const metadata: Metadata = {
@@ -32,42 +29,9 @@ export default function CertificacionesPage() {
         </a>
       </Button>
 
-      <RevealGroup className="mt-10 flex flex-col gap-4">
-        {certificaciones.map((c) => (
-          <div
-            key={c.nombre}
-            className="card-interactive flex flex-col items-start justify-between gap-4 rounded-xl border border-border bg-card p-6 sm:flex-row sm:items-center"
-          >
-            <div className="flex items-start gap-4">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-                <ShieldCheck className="size-5" strokeWidth={1.75} />
-              </div>
-              <div>
-                <p className="font-heading text-base font-bold text-foreground">{c.nombre}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{c.descripcion}</p>
-                <p className="mt-1 font-data text-xs text-muted-foreground">
-                  {c.entidadEmisora} · {c.fecha}
-                </p>
-              </div>
-            </div>
-            <Button asChild variant="outline" className="shrink-0 gap-2 rounded-lg">
-              <a
-                href={whatsappLink(`Hola, quiero solicitar el documento de la certificación ${c.nombre}.`)}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="size-4" />
-                Solicitar documento
-              </a>
-            </Button>
-          </div>
-        ))}
-      </RevealGroup>
-
       <p className="mt-8 text-xs text-muted-foreground">
-        Los documentos se entregan en formato PDF bajo solicitud y se actualizan periódicamente.
-        Escríbenos por WhatsApp o correo indicando el proceso de contratación para el que los
-        necesitas.
+        El documento se actualiza periódicamente. Si necesitas una versión específica para un
+        proceso de contratación en particular, escríbenos por WhatsApp o correo.
       </p>
     </section>
   );
